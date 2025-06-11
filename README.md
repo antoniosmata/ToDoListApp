@@ -406,7 +406,7 @@ For questions or feedback, please contact me at:
 [license-shield]: https://img.shields.io/github/license/your-username/task-manager.svg?style=for-the-badge
 [license-url]: https://github.com/your-username/task-manager/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/your-profile
+[linkedin-url]: https://linkedin.com/in/your-profile](https://www.linkedin.com/in/antoniosmata/
 
 [ASP.NET-shield]: https://img.shields.io/badge/ASP.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
 [ASP.NET-url]: https://dotnet.microsoft.com/en-us/apps/aspnet
