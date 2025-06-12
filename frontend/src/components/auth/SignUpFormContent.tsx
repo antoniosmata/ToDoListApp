@@ -474,7 +474,14 @@ const SignUpFormContent: React.FC = () => {
                       gap: '0.5rem',
                       display: 'flex',
                       border: 'none',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!loading) e.currentTarget.style.backgroundColor = '#2d5139';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!loading) e.currentTarget.style.backgroundColor = '#356247';
                     }}
                   >
                     <div style={{

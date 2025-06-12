@@ -15,10 +15,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => 
 
   useEffect(() => {
     if (onComplete && duration) {
-      // Start fade out 500ms before completion
+      // Start fade out 1200ms before completion
       const fadeTimer = setTimeout(() => {
         setIsFadingOut(true);
-      }, duration - 500);
+      }, duration - 1200);
 
       const timer = setTimeout(onComplete, duration);
       return () => {
