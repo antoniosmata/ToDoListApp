@@ -1,0 +1,449 @@
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+/* Onboarding Flow Container */
+.onboarding-flow {
+  width: 100%;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Splash Screen Styles */
+.splash-screen-onboarding {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: #356247;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.splash-content-onboarding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.splash-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.splash-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.splash-icon {
+  flex-shrink: 0;
+}
+
+.splash-subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  margin-top: 1rem;
+}
+
+/* Onboarding Step Container */
+.onboarding-step {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 3.75rem;
+  margin-bottom: 5rem;
+}
+
+.progress-dot {
+  width: 1.25rem;
+  height: 0.3125rem;
+  background: #356247;
+  border-radius: 0.375rem;
+  opacity: 0.20;
+}
+
+.progress-dot.active {
+  opacity: 1;
+}
+
+/* Step Content */
+.step-content {
+  width: 100%;
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  flex: 1;
+}
+
+.task-items {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-item {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.625rem;
+  border: 0.1875rem #356247 solid;
+  border-radius: 0.625rem;
+}
+
+.task-text {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.step-text {
+  text-align: center;
+}
+
+.step-text-center {
+  text-align: center;
+}
+
+.step-heading {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.step-description {
+  color: #333333;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Step 2 Layout */
+.step-header {
+  display: flex;
+  justify-content: center;
+  padding: 5.25rem 0 1.25rem 0;
+}
+
+.step-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.step-footer {
+  padding: 1.25rem 1.4375rem 3.75rem 1.4375rem;
+  width: 100%;
+  max-width: 25rem;
+  box-sizing: border-box;
+}
+
+/* Step 3 Layout */
+.step-main-final {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  gap: 2.5rem;
+}
+
+/* Buttons */
+.onboarding-button {
+  width: 100%;
+  padding: 0.875rem;
+  background: #356247;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.onboarding-button:hover {
+  background: #2d5139;
+}
+
+.onboarding-button:active {
+  background: #254429;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.button-group .onboarding-button {
+  flex: 1;
+}
+
+/* Responsive Design */
+
+/* Tablet Portrait */
+@media (max-width: 48rem) {
+  .onboarding-step {
+    padding: 1.25rem;
+  }
+  
+  .splash-title {
+    font-size: 3.5rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.375rem;
+  }
+  
+  .splash-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 40rem) {
+  .onboarding-step {
+    padding: 1.125rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 3.125rem;
+    margin-bottom: 4.375rem;
+  }
+  
+  .step-header {
+    padding: 4.375rem 0 1.25rem 0;
+  }
+  
+  .splash-title {
+    font-size: 3.25rem;
+  }
+  
+  .task-text {
+    font-size: 1.0625rem;
+  }
+  
+  .step-heading {
+    font-size: 1.0625rem;
+  }
+  
+  .step-description {
+    font-size: 1.375rem;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 30rem) {
+  .onboarding-step {
+    padding: 1rem;
+  }
+  
+  .splash-title {
+    font-size: 3rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .splash-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 2.5rem;
+    margin-bottom: 3.75rem;
+  }
+  
+  .task-text {
+    font-size: 1rem;
+  }
+  
+  .step-heading {
+    font-size: 1rem;
+  }
+  
+  .step-description {
+    font-size: 1.25rem;
+  }
+  
+  .step-header {
+    padding: 3.75rem 0 1.25rem 0;
+  }
+  
+  .step-content {
+    gap: 1.875rem;
+  }
+  
+  .task-items {
+    gap: 0.875rem;
+  }
+  
+  .button-group {
+    gap: 0.75rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 22.5rem) {
+  .onboarding-step {
+    padding: 0.75rem;
+  }
+  
+  .splash-title {
+    font-size: 2.625rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .splash-icon {
+    width: 2.625rem;
+    height: 2.625rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 1.875rem;
+    margin-bottom: 3.125rem;
+  }
+  
+  .task-text {
+    font-size: 0.9375rem;
+  }
+  
+  .step-heading {
+    font-size: 0.9375rem;
+  }
+  
+  .step-description {
+    font-size: 1.125rem;
+  }
+  
+  .step-header {
+    padding: 3.125rem 0 0.9375rem 0;
+  }
+  
+  .step-content {
+    gap: 1.5625rem;
+  }
+}
+
+/* Large Screens */
+@media (min-width: 64rem) {
+  .onboarding-step {
+    padding: 2rem;
+  }
+  
+  .splash-title {
+    font-size: 4.5rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.75rem;
+  }
+  
+  .splash-icon {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+  
+  .task-text {
+    font-size: 1.25rem;
+  }
+  
+  .step-heading {
+    font-size: 1.25rem;
+  }
+  
+  .step-description {
+    font-size: 1.625rem;
+  }
+}
+
+/* Apple-style text reveal animations */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(0.625rem);
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.text-reveal-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.text-reveal-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.text-reveal-delay-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  animation: pageTransition 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageTransition {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-button {
+    transition: none;
+  }
+  
+  .text-reveal,
+  .page-transition {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

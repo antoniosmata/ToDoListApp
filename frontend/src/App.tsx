@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './hooks/useAuth';
 import Header from './components/shared/Header';
 import ProtectedRoute from './components/shared/ProtectedRoute';
+import OnboardingFlow from './components/onboarding/OnboardingFlow';
 import AnimatedLogin from './components/auth/AnimatedLogin';
 import SignUpForm from './components/auth/SignUpForm';
 import TaskList from './components/tasks/TaskList';
@@ -14,8 +15,12 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            {/* Full-screen animated login */}
+            {/* Onboarding flow */}
+            <Route path="/" element={<OnboardingFlow />} />
+            
+            {/* Full-screen pages without header */}
             <Route path="/signin" element={<AnimatedLogin />} />
+            <Route path="/signup" element={<SignUpForm />} />
             
             {/* Regular layout with header for other routes */}
             <Route path="/*" element={
@@ -23,7 +28,6 @@ function App() {
                 <Header />
                 <main className="main-content">
                   <Routes>
-                    <Route path="/signup" element={<SignUpForm />} />
                     <Route
                       path="/tasks"
                       element={
@@ -32,7 +36,6 @@ function App() {
                         </ProtectedRoute>
                       }
                     />
-                    <Route path="/" element={<Navigate to="/tasks" replace />} />
                     <Route path="*" element={<Navigate to="/tasks" replace />} />
                   </Routes>
                 </main>
