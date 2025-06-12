@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import ProgressIndicator from './ProgressIndicator';
 import './OnboardingFlow.css';
@@ -8,16 +8,41 @@ const CheckIcon = IoMdCheckmarkCircleOutline as React.ComponentType<any>;
 
 interface OnboardingStep1Props {
   onNext: () => void;
+  currentVisibleStep?: number;
 }
 
-const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext }) => {
+const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext, currentVisibleStep = 1 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const stepRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (stepRef.current) {
+      observer.observe(stepRef.current);
+    }
+
+    return () => {
+      if (stepRef.current) {
+        observer.unobserve(stepRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="onboarding-step page-transition">
-      <ProgressIndicator currentStep={1} />
+    <div ref={stepRef} className="onboarding-step page-transition">
+      <ProgressIndicator currentStep={currentVisibleStep} />
       
       <div className="content-wrapper-step1">
         <div className="tasks-section">
-          <div className="task-category text-reveal">
+          <div className={`task-category ${isVisible ? 'text-reveal' : ''}`}>
             <h3 className="task-category-title">Home</h3>
             <div className="task-card">
               <div className="task-icon">
@@ -27,7 +52,7 @@ const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext }) => {
             </div>
           </div>
           
-          <div className="task-category text-reveal text-reveal-delay-1">
+          <div className={`task-category ${isVisible ? 'text-reveal text-reveal-delay-1' : ''}`}>
             <h3 className="task-category-title">Finances</h3>
             <div className="task-card">
               <div className="task-icon">
@@ -37,7 +62,7 @@ const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext }) => {
             </div>
           </div>
           
-          <div className="task-category text-reveal text-reveal-delay-2">
+          <div className={`task-category ${isVisible ? 'text-reveal text-reveal-delay-2' : ''}`}>
             <h3 className="task-category-title">Work</h3>
             <div className="task-card">
               <div className="task-icon">
@@ -48,7 +73,7 @@ const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext }) => {
           </div>
         </div>
         
-        <div className="text-content text-reveal text-reveal-delay-3">
+        <div className={`text-content ${isVisible ? 'text-reveal text-reveal-delay-3' : ''}`}>
           <h2 className="primary-heading">Divide Tasks by Categories</h2>
           <p className="secondary-heading">Manage all of your goals in one spot</p>
         </div>

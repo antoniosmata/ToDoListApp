@@ -15,86 +15,70 @@ enum OnboardingStep {
 
 const OnboardingFlow: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>(OnboardingStep.SPLASH);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<'up' | 'down' | null>(null);
-  const touchStartX = useRef<number>(0);
-  const touchStartY = useRef<number>(0);
+  const [currentVisibleStep, setCurrentVisibleStep] = useState<number>(1);
+  const step1Ref = useRef<HTMLDivElement>(null);
+  const step2Ref = useRef<HTMLDivElement>(null);
+  const step3Ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const handleNext = useCallback(() => {
-    if (currentStep < OnboardingStep.STEP3 && !isTransitioning) {
-      setIsTransitioning(true);
-      setSlideDirection('up');
+    if (currentVisibleStep < 3) {
+      const nextStep = currentVisibleStep + 1;
+      const targetRef = nextStep === 2 ? step2Ref : step3Ref;
       
-      setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-        setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 300);
+      targetRef.current?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
-  }, [currentStep, isTransitioning]);
+  }, [currentVisibleStep]);
 
   useEffect(() => {
     if (currentStep === OnboardingStep.SPLASH) {
       const timer = setTimeout(() => {
         setCurrentStep(OnboardingStep.STEP1);
-      }, 3000); // 3 seconds for splash screen fade
+      }, 2000); // 2 seconds for splash screen fade
 
       return () => clearTimeout(timer);
     }
   }, [currentStep]);
 
-  const handlePrevious = useCallback(() => {
-    if (currentStep > OnboardingStep.STEP1 && !isTransitioning) {
-      setIsTransitioning(true);
-      setSlideDirection('down');
-      
-      setTimeout(() => {
-        setCurrentStep(currentStep - 1);
-        setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 300);
-    }
-  }, [currentStep, isTransitioning]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (isTransitioning) return;
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
+  // Add Intersection Observer for page visibility detection
+  useEffect(() => {
+    if (currentStep === OnboardingStep.SPLASH) return;
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!e.changedTouches[0] || isTransitioning) return;
-    
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    const deltaX = touchStartX.current - touchEndX;
-    const deltaY = touchStartY.current - touchEndY;
-    
-    // Only handle vertical swipes (ignore horizontal scrolling)
-    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 80) {
-      if (deltaY > 0) {
-        // Swiped up - go to next
-        handleNext();
-      } else {
-        // Swiped down - go to previous
-        handlePrevious();
-      }
-    }
-  };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            if (entry.target === step1Ref.current) {
+              setCurrentVisibleStep(1);
+            } else if (entry.target === step2Ref.current) {
+              setCurrentVisibleStep(2);
+            } else if (entry.target === step3Ref.current) {
+              setCurrentVisibleStep(3);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
 
-  const handleWheel = (e: React.WheelEvent) => {
-    if (isTransitioning) return;
-    
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 50) {
-      e.preventDefault();
-      if (e.deltaY > 0) {
-        handleNext();
-      } else {
-        handlePrevious();
-      }
-    }
-  };
+    const step1 = step1Ref.current;
+    const step2 = step2Ref.current;
+    const step3 = step3Ref.current;
+
+    if (step1) observer.observe(step1);
+    if (step2) observer.observe(step2);
+    if (step3) observer.observe(step3);
+
+    return () => {
+      if (step1) observer.unobserve(step1);
+      if (step2) observer.unobserve(step2);
+      if (step3) observer.unobserve(step3);
+    };
+  }, [currentStep]);
 
   const handleRegister = () => {
     navigate('/signup');
@@ -104,30 +88,26 @@ const OnboardingFlow: React.FC = () => {
     navigate('/signin');
   };
 
-  const renderCurrentStep = () => {
-    switch (currentStep) {
-      case OnboardingStep.SPLASH:
-        return <SplashScreen />;
-      case OnboardingStep.STEP1:
-        return <OnboardingStep1 onNext={handleNext} />;
-      case OnboardingStep.STEP2:
-        return <OnboardingStep2 onNext={handleNext} />;
-      case OnboardingStep.STEP3:
-        return <OnboardingStep3 onRegister={handleRegister} onSignIn={handleSignIn} />;
-      default:
-        return <SplashScreen />;
-    }
-  };
+  if (currentStep === OnboardingStep.SPLASH) {
+    return (
+      <div className="onboarding-flow">
+        <SplashScreen />
+      </div>
+    );
+  }
 
   return (
-    <div 
-      className={`onboarding-flow ${slideDirection ? `slide-${slideDirection}` : ''} ${isTransitioning ? 'transitioning' : ''}`}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onWheel={handleWheel}
-    >
-      <div className="onboarding-page">
-        {renderCurrentStep()}
+    <div className="onboarding-flow">
+      <div className="continuous-scroll-container">
+        <div ref={step1Ref} className="scroll-step">
+          <OnboardingStep1 onNext={handleNext} currentVisibleStep={currentVisibleStep} />
+        </div>
+        <div ref={step2Ref} className="scroll-step">
+          <OnboardingStep2 onNext={handleNext} currentVisibleStep={currentVisibleStep} />
+        </div>
+        <div ref={step3Ref} className="scroll-step">
+          <OnboardingStep3 onRegister={handleRegister} onSignIn={handleSignIn} currentVisibleStep={currentVisibleStep} />
+        </div>
       </div>
     </div>
   );
