@@ -14,8 +14,8 @@ WORKDIR /src
 COPY TaskManagerAPI.csproj ./
 RUN dotnet restore TaskManagerAPI.csproj
 
-# Copy everything else and build
-COPY . ./
+# Copy source code
+COPY src/ ./src/
 RUN dotnet build TaskManagerAPI.csproj -c Release -o /app/build
 
 # Publish the application

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { SignUpDto } from '../../types';
+import VideoBackground from '../shared/VideoBackground';
 
 const SignUpForm: React.FC = () => {
   const [formData, setFormData] = useState<SignUpDto>({
@@ -61,8 +62,9 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <VideoBackground videoSrc="/beach.mp4" overlayOpacity={0.3}>
+      <div className="auth-container">
+        <div className="auth-card">
         <h1>Sign Up</h1>
         <p className="auth-subtitle">Create your account to get started.</p>
 
@@ -147,8 +149,9 @@ const SignUpForm: React.FC = () => {
         <p className="auth-link">
           Already have an account? <Link to="/signin">Sign in here</Link>
         </p>
+        </div>
       </div>
-    </div>
+    </VideoBackground>
   );
 };
 
