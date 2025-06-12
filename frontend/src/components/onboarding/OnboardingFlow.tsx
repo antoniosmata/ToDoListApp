@@ -16,41 +16,23 @@ enum OnboardingStep {
 const OnboardingFlow: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>(OnboardingStep.SPLASH);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [slideDirection, setSlideDirection] = useState<'up' | 'down' | null>(null);
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
   const navigate = useNavigate();
 
-  const scrollToStep = useCallback((step: OnboardingStep) => {
-    if (!containerRef.current || isTransitioning || step === OnboardingStep.SPLASH) return;
-    
-    setIsTransitioning(true);
-    const container = containerRef.current;
-    // Calculate position: STEP1=0, STEP2=1, STEP3=2 (subtract 1 since splash is separate)
-    const viewportHeight = window.innerHeight;
-    const targetY = (step - 1) * viewportHeight;
-    
-    container.scrollTo({
-      top: targetY,
-      behavior: 'smooth'
-    });
-
-    // Reset transition state after animation
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 600);
-  }, [isTransitioning]);
-
   const handleNext = useCallback(() => {
-    if (currentStep < OnboardingStep.STEP3) {
-      const nextStep = currentStep + 1;
-      setCurrentStep(nextStep);
-      // Only scroll if we're past the splash screen
-      if (currentStep >= OnboardingStep.STEP1) {
-        scrollToStep(nextStep);
-      }
+    if (currentStep < OnboardingStep.STEP3 && !isTransitioning) {
+      setIsTransitioning(true);
+      setSlideDirection('up');
+      
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      }, 300);
     }
-  }, [currentStep, scrollToStep]);
+  }, [currentStep, isTransitioning]);
 
   useEffect(() => {
     if (currentStep === OnboardingStep.SPLASH) {
@@ -63,20 +45,26 @@ const OnboardingFlow: React.FC = () => {
   }, [currentStep]);
 
   const handlePrevious = useCallback(() => {
-    if (currentStep > OnboardingStep.SPLASH) {
-      const prevStep = currentStep - 1;
-      setCurrentStep(prevStep);
-      scrollToStep(prevStep);
+    if (currentStep > OnboardingStep.STEP1 && !isTransitioning) {
+      setIsTransitioning(true);
+      setSlideDirection('down');
+      
+      setTimeout(() => {
+        setCurrentStep(currentStep - 1);
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      }, 300);
     }
-  }, [currentStep, scrollToStep]);
+  }, [currentStep, isTransitioning]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (isTransitioning) return;
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!e.changedTouches[0]) return;
+    if (!e.changedTouches[0] || isTransitioning) return;
     
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
@@ -84,7 +72,7 @@ const OnboardingFlow: React.FC = () => {
     const deltaY = touchStartY.current - touchEndY;
     
     // Only handle vertical swipes (ignore horizontal scrolling)
-    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 80) {
       if (deltaY > 0) {
         // Swiped up - go to next
         handleNext();
@@ -96,12 +84,13 @@ const OnboardingFlow: React.FC = () => {
   };
 
   const handleWheel = (e: React.WheelEvent) => {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      // Vertical scroll
+    if (isTransitioning) return;
+    
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && Math.abs(e.deltaY) > 50) {
       e.preventDefault();
-      if (e.deltaY > 30) {
+      if (e.deltaY > 0) {
         handleNext();
-      } else if (e.deltaY < -30) {
+      } else {
         handlePrevious();
       }
     }
@@ -115,34 +104,30 @@ const OnboardingFlow: React.FC = () => {
     navigate('/signin');
   };
 
-  if (currentStep === OnboardingStep.SPLASH) {
-    return (
-      <div className="onboarding-flow">
-        <SplashScreen />
-      </div>
-    );
-  }
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case OnboardingStep.SPLASH:
+        return <SplashScreen />;
+      case OnboardingStep.STEP1:
+        return <OnboardingStep1 onNext={handleNext} />;
+      case OnboardingStep.STEP2:
+        return <OnboardingStep2 onNext={handleNext} />;
+      case OnboardingStep.STEP3:
+        return <OnboardingStep3 onRegister={handleRegister} onSignIn={handleSignIn} />;
+      default:
+        return <SplashScreen />;
+    }
+  };
 
   return (
     <div 
-      className="onboarding-flow"
+      className={`onboarding-flow ${slideDirection ? `slide-${slideDirection}` : ''} ${isTransitioning ? 'transitioning' : ''}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onWheel={handleWheel}
     >
-      <div 
-        ref={containerRef}
-        className="onboarding-container"
-      >
-        <div className="onboarding-step-wrapper">
-          <OnboardingStep1 onNext={handleNext} />
-        </div>
-        <div className="onboarding-step-wrapper">
-          <OnboardingStep2 onNext={handleNext} />
-        </div>
-        <div className="onboarding-step-wrapper">
-          <OnboardingStep3 onRegister={handleRegister} onSignIn={handleSignIn} />
-        </div>
+      <div className="onboarding-page">
+        {renderCurrentStep()}
       </div>
     </div>
   );

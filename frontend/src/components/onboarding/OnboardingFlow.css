@@ -10,26 +10,43 @@
   position: relative;
 }
 
-/* Vertical Scroll Container */
-.onboarding-container {
-  display: flex;
-  flex-direction: column;
+/* Page Container */
+.onboarding-page {
   width: 100%;
-  height: 300vh; /* 3 step pages * 100vh each */
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.onboarding-step-wrapper {
-  width: 100%;
-  height: 100vh; /* Each step takes full viewport height */
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  position: relative;
+/* Slide Transitions */
+.onboarding-flow.slide-up .onboarding-page {
+  transform: translateY(-100vh);
+  opacity: 0;
+}
+
+.onboarding-flow.slide-down .onboarding-page {
+  transform: translateY(100vh);
+  opacity: 0;
+}
+
+.onboarding-flow.transitioning .onboarding-page {
+  pointer-events: none;
+}
+
+/* Page Enter Animations */
+.onboarding-page {
+  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Splash Screen Styles */
