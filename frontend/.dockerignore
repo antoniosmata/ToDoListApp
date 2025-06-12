@@ -1,12 +1,38 @@
+# .dockerignore for a React/Node.js frontend application
+
+# --- Dependencies ---
 node_modules
-npm-debug.log
-Dockerfile*
-docker-compose*
-.dockerignore
+
+# --- Build output ---
+# The 'npm run build' command creates this folder inside the container.
+# We don't want to copy any pre-existing local build folder.
+build
+dist
+
+# --- Log files ---
+yarn-error.log
+*.log
+
+# --- Environment variables ---
+.env
+.env.local
+.env.*.local
+
+# --- Git / Version Control ---
 .git
 .gitignore
-README.md
-.env
-.nyc_output
-coverage
+
+# --- Docker-specific files ---
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# --- Editor and OS-specific files ---
 .vscode
+.idea
+.DS_Store
+*.swp
+
+# --- Test output ---
+coverage
+.nyc_output

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { SignInDto } from '../../types';
+import VideoBackground from '../shared/VideoBackground';
 
 const SignInForm: React.FC = () => {
   const [formData, setFormData] = useState<SignInDto>({
@@ -35,52 +36,54 @@ const SignInForm: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h1>Sign In</h1>
-        <p className="auth-subtitle">Welcome back! Please sign in to your account.</p>
+    <VideoBackground videoSrc="/stream.mp4" overlayOpacity={0.3}>
+      <div className="auth-container">
+        <div className="auth-card">
+          <h1>Sign In</h1>
+          <p className="auth-subtitle">Welcome back! Please sign in to your account.</p>
 
-        {errors && <div className="error-message">{errors}</div>}
+          {errors && <div className="error-message">{errors}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              disabled={loading}
-              placeholder="Enter your email"
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="Enter your email"
+              />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              disabled={loading}
-              placeholder="Enter your password"
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="Enter your password"
+              />
+            </div>
 
-          <button type="submit" disabled={loading} className="auth-button">
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
+            <button type="submit" disabled={loading} className="auth-button">
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
 
-        <p className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up here</Link>
-        </p>
+          <p className="auth-link">
+            Don't have an account? <Link to="/signup">Sign up here</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </VideoBackground>
   );
 };
 

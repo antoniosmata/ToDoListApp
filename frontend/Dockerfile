@@ -4,13 +4,18 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-RUN npm ci --only=production
+
+# Set the npm registry
+RUN npm config set registry https://registry.npmjs.org/
+
+RUN npm ci --verbose
 
 # Copy source code
 COPY . .
 
-# Set the API URL environment variable for build
-ENV REACT_APP_API_URL=http://localhost:5001/api
+# Accept build argument for API URL
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
 
 # Build the React app
 RUN npm run build

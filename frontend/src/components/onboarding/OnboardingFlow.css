@@ -1,0 +1,665 @@
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+/* Onboarding Flow Container */
+.onboarding-flow {
+  width: 100%;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Continuous Scroll Container */
+.continuous-scroll-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Individual Scroll Steps */
+.scroll-step {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove page transitions for continuous scroll */
+.scroll-step .onboarding-step {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Splash Screen Styles */
+.splash-screen-onboarding {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: #356247;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.splash-content-onboarding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.splash-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.splash-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.splash-icon {
+  flex-shrink: 0;
+}
+
+.splash-subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+.splash-subtitle-multiline {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+  margin-top: 0.25rem;
+  align-self: flex-start;
+}
+
+/* Splash Screen Fade Out */
+.splash-fade-out {
+  transition: opacity 1.2s ease-out;
+}
+
+.white-fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  animation: whiteFadeIn 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes whiteFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Onboarding Step Container */
+.onboarding-step {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: absolute;
+  top: 4.375rem;
+  left: 1.5rem;
+}
+
+.progress-bar {
+  width: 0.3125rem;
+  height: 1.25rem;
+  background: #356247;
+  border-radius: 0.375rem;
+}
+
+.progress-bar.inactive {
+  opacity: 0.2;
+}
+
+.progress-bar.active {
+  opacity: 1;
+}
+
+/* Step Content */
+.step-content {
+  width: 100%;
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.875rem;
+  flex: 1;
+  margin-top: 8.125rem;
+}
+
+.tasks-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.task-category {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3125rem;
+}
+
+.task-category-title {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 0.3125rem 0;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9375rem;
+  padding: 0.625rem;
+  background: white;
+  border-radius: 0.625rem;
+  border: 0.1875rem solid #356247;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.task-icon {
+  background: #356247;
+  border-radius: 0.625rem;
+  padding: 0.3125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8125rem;
+  height: 2.8125rem;
+  flex-shrink: 0;
+}
+
+.task-card-title {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.text-content {
+  text-align: center;
+  margin-top: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.primary-heading {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.secondary-heading {
+  color: #000000;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.step-text {
+  text-align: center;
+}
+
+.step-text-center {
+  text-align: center;
+}
+
+.step-heading {
+  color: #356247;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.step-description {
+  color: #333333;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Step 2 Layout */
+.step-header {
+  display: flex;
+  justify-content: center;
+  padding: 5.25rem 0 1.25rem 0;
+}
+
+.step-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.step-footer {
+  padding: 1.25rem 1.4375rem 3.75rem 1.4375rem;
+  width: 100%;
+  max-width: 25rem;
+  box-sizing: border-box;
+}
+
+/* Step 3 Layout */
+.step-main-final {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  gap: 2.5rem;
+}
+
+/* Buttons */
+.onboarding-button {
+  width: 100%;
+  padding: 0.875rem;
+  background: #356247;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.onboarding-button:hover {
+  background: #2d5139;
+}
+
+.onboarding-button:active {
+  background: #254429;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.button-group .onboarding-button {
+  flex: 1;
+}
+
+/* Step 1 New Layout */
+.content-wrapper-step1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 1.875rem;
+  width: 100%;
+  max-width: 25rem;
+}
+
+/* Step 2 New Layout */
+.content-wrapper-step2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 25rem;
+}
+
+.illustration-calendar {
+  flex-shrink: 0;
+}
+
+/* Step 3 New Layout */
+.content-wrapper-step3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 25rem;
+}
+
+.illustration-checkmark {
+  flex-shrink: 0;
+}
+
+.button-container-step3 {
+  padding: 1.25rem 1.4375rem 3.75rem 1.4375rem;
+  width: 100%;
+  max-width: 25rem;
+  box-sizing: border-box;
+}
+
+.button-group-step3 {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.button {
+  flex: 1;
+  padding: 0.875rem;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-secondary {
+  background: white;
+  color: #356247;
+  border: 0.0625rem solid #356247;
+}
+
+.button-secondary:hover {
+  background: #356247;
+  color: white;
+}
+
+.button-primary {
+  background: #356247;
+  color: white;
+  border: none;
+}
+
+.button-primary:hover {
+  background: #2d5139;
+}
+
+/* Responsive Design */
+
+/* Tablet Portrait */
+@media (max-width: 48rem) {
+  .onboarding-step {
+    padding: 1.25rem;
+  }
+  
+  .splash-title {
+    font-size: 3.5rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.375rem;
+  }
+  
+  .splash-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 40rem) {
+  .onboarding-step {
+    padding: 1.125rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 3.125rem;
+    margin-bottom: 4.375rem;
+  }
+  
+  .step-header {
+    padding: 4.375rem 0 1.25rem 0;
+  }
+  
+  .splash-title {
+    font-size: 3.75rem;
+  }
+  
+  .task-text {
+    font-size: 1.0625rem;
+  }
+  
+  .step-heading {
+    font-size: 1.0625rem;
+  }
+  
+  .step-description {
+    font-size: 1.375rem;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 30rem) {
+  .onboarding-step {
+    padding: 1rem;
+  }
+  
+  .splash-title {
+    font-size: 3.5rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .splash-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 2.5rem;
+    margin-bottom: 3.75rem;
+  }
+  
+  .task-text {
+    font-size: 1rem;
+  }
+  
+  .step-heading {
+    font-size: 1rem;
+  }
+  
+  .step-description {
+    font-size: 1.25rem;
+  }
+  
+  .step-header {
+    padding: 3.75rem 0 1.25rem 0;
+  }
+  
+  .step-content {
+    gap: 1.875rem;
+  }
+  
+  .task-items {
+    gap: 0.875rem;
+  }
+  
+  .button-group {
+    gap: 0.75rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 22.5rem) {
+  .onboarding-step {
+    padding: 0.75rem;
+  }
+  
+  .splash-title {
+    font-size: 2.625rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .splash-icon {
+    width: 2.625rem;
+    height: 2.625rem;
+  }
+  
+  .progress-indicator {
+    margin-top: 1.875rem;
+    margin-bottom: 3.125rem;
+  }
+  
+  .task-text {
+    font-size: 0.9375rem;
+  }
+  
+  .step-heading {
+    font-size: 0.9375rem;
+  }
+  
+  .step-description {
+    font-size: 1.125rem;
+  }
+  
+  .step-header {
+    padding: 3.125rem 0 0.9375rem 0;
+  }
+  
+  .step-content {
+    gap: 1.5625rem;
+  }
+}
+
+/* Large Screens */
+@media (min-width: 64rem) {
+  .onboarding-step {
+    padding: 2rem;
+  }
+  
+  .splash-title {
+    font-size: 4.5rem;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.75rem;
+  }
+  
+  .splash-icon {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+  
+  .task-text {
+    font-size: 1.25rem;
+  }
+  
+  .step-heading {
+    font-size: 1.25rem;
+  }
+  
+  .step-description {
+    font-size: 1.625rem;
+  }
+}
+
+/* Apple-style text reveal animations */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(0.625rem);
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.text-reveal-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.text-reveal-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.text-reveal-delay-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  animation: pageTransition 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageTransition {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-button {
+    transition: none;
+  }
+  
+  .text-reveal,
+  .page-transition {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
