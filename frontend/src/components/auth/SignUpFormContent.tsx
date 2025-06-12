@@ -441,9 +441,9 @@ const SignUpFormContent: React.FC = () => {
               }}
             >
               {showPassword ? (
-                <EyeSlashIcon size="1.5rem" color="#828282" />
-              ) : (
                 <EyeIcon size="1.5rem" color="#828282" />
+              ) : (
+                <EyeSlashIcon size="1.5rem" color="#828282" />
               )}
             </button>
           </div>
@@ -524,9 +524,9 @@ const SignUpFormContent: React.FC = () => {
               }}
             >
               {showConfirmPassword ? (
-                <EyeSlashIcon size="1.5rem" color="#828282" />
-              ) : (
                 <EyeIcon size="1.5rem" color="#828282" />
+              ) : (
+                <EyeSlashIcon size="1.5rem" color="#828282" />
               )}
             </button>
           </div>
