@@ -26,13 +26,14 @@ const OnboardingStep3: React.FC<OnboardingStep3Props> = ({ onRegister, onSignIn,
       { threshold: 0.3 }
     );
 
-    if (stepRef.current) {
-      observer.observe(stepRef.current);
+    const element = stepRef.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (stepRef.current) {
-        observer.unobserve(stepRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, []);

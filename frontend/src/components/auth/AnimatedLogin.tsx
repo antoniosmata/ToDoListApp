@@ -35,7 +35,7 @@ const AnimatedLogin: React.FC = () => {
       case AnimationPhase.VIDEO:
         return (
           <VideoBackground
-            videoSrc="/beach.mp4"
+            videoSrc="/stream.mp4"
             overlayOpacity={0.3}
             playOnce={false}
             showChildren={false}
@@ -47,7 +47,7 @@ const AnimatedLogin: React.FC = () => {
       case AnimationPhase.LOGIN:
         return (
           <VideoBackground
-            videoSrc="/beach.mp4"
+            videoSrc="/stream.mp4"
             overlayOpacity={0.3}
             playOnce={false}
             showChildren={true}

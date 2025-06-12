@@ -62,7 +62,7 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <VideoBackground videoSrc="/beach.mp4" overlayOpacity={0.3}>
+    <VideoBackground videoSrc="/stream.mp4" overlayOpacity={0.3}>
       <div className="auth-container">
         <div className="auth-card">
         <h1>Sign Up</h1>
