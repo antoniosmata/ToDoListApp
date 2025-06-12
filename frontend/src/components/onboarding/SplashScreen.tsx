@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import './OnboardingFlow.css';
 
@@ -11,14 +11,24 @@ interface SplashScreenProps {
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => {
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
   useEffect(() => {
     if (onComplete && duration) {
+      // Start fade out 500ms before completion
+      const fadeTimer = setTimeout(() => {
+        setIsFadingOut(true);
+      }, duration - 500);
+
       const timer = setTimeout(onComplete, duration);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(fadeTimer);
+      };
     }
   }, [onComplete, duration]);
   return (
-    <div className="splash-screen-onboarding">
+    <div className={`splash-screen-onboarding ${isFadingOut ? 'splash-fade-out' : ''}`}>
       <div className="splash-content-onboarding">
         <div className="splash-header">
           <h1 className="splash-title text-reveal">Leap</h1>
@@ -35,6 +45,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => 
           Productivity App
         </p>
       </div>
+      {isFadingOut && <div className="white-fade-overlay" />}
     </div>
   );
 };

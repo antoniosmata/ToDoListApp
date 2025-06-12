@@ -1,44 +1,76 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CiMail, CiLock } from "react-icons/ci";
+import { CiMail, CiLock, CiUser } from "react-icons/ci";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from '../../hooks/useAuth';
-import { SignInDto } from '../../types';
+import { SignUpDto } from '../../types';
 
 // Type assertions for React 19 compatibility
 const MailIcon = CiMail as React.ComponentType<any>;
 const LockIcon = CiLock as React.ComponentType<any>;
+const UserIcon = CiUser as React.ComponentType<any>;
 const EyeIcon = FaRegEye as React.ComponentType<any>;
 const EyeSlashIcon = FaRegEyeSlash as React.ComponentType<any>;
 
-const SignInFormContent: React.FC = () => {
-  const [formData, setFormData] = useState<SignInDto>({
+const SignUpFormContent: React.FC = () => {
+  const [formData, setFormData] = useState<SignUpDto>({
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   });
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn } = useAuth();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { signUp } = useAuth();
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (name === 'confirmPassword') {
+      setConfirmPassword(value);
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    
     if (errors) setErrors('');
+  };
+
+  const validateForm = (): boolean => {
+    if (formData.password.length < 8) {
+      setErrors('Password must be at least 8 characters long');
+      return false;
+    }
+    
+    if (formData.password !== confirmPassword) {
+      setErrors('Passwords do not match');
+      return false;
+    }
+    
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) return;
+    
     setLoading(true);
     setErrors('');
 
     try {
-      await signIn(formData);
+      await signUp(formData);
       navigate('/tasks');
     } catch (error: any) {
       setErrors(error.response?.data?.message || 'An error occurred. Please try again.');
@@ -81,7 +113,7 @@ const SignInFormContent: React.FC = () => {
           fontWeight: '700',
           wordWrap: 'break-word'
         }}>
-          Sign In
+          Sign Up
         </div>
       </div>
 
@@ -96,6 +128,102 @@ const SignInFormContent: React.FC = () => {
         gap: '1rem',
         display: 'flex'
       }}>
+        {/* First Name Field */}
+        <div style={{
+          width: '20.5625rem',
+          height: '2.75rem',
+          position: 'relative'
+        }}>
+          <div style={{
+            width: '20.5625rem',
+            height: '2.75rem',
+            position: 'absolute',
+            borderRadius: '0.5rem',
+            outline: '1px #D0D0D0 solid',
+            outlineOffset: '-1px'
+          }}>
+            <div style={{
+              left: '0.5rem',
+              top: '0.625rem',
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '0.5rem',
+              display: 'inline-flex'
+            }}>
+              <UserIcon size="1.5rem" color="#828282" />
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="First Name"
+                style={{
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
+                  color: '#828282',
+                  fontSize: '0.875rem',
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  width: '16.25rem'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Last Name Field */}
+        <div style={{
+          width: '20.5625rem',
+          height: '2.75rem',
+          position: 'relative'
+        }}>
+          <div style={{
+            width: '20.5625rem',
+            height: '2.75rem',
+            position: 'absolute',
+            borderRadius: '0.5rem',
+            outline: '1px #D0D0D0 solid',
+            outlineOffset: '-1px'
+          }}>
+            <div style={{
+              left: '0.5rem',
+              top: '0.625rem',
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '0.5rem',
+              display: 'inline-flex'
+            }}>
+              <UserIcon size="1.5rem" color="#828282" />
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="Last Name"
+                style={{
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
+                  color: '#828282',
+                  fontSize: '0.875rem',
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  width: '16.25rem'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Email Field */}
         <div style={{
           width: '20.5625rem',
@@ -176,7 +304,7 @@ const SignInFormContent: React.FC = () => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                placeholder="Password"
+                placeholder="Password (min 8 characters)"
                 style={{
                   border: 'none',
                   outline: 'none',
@@ -212,18 +340,72 @@ const SignInFormContent: React.FC = () => {
           </div>
         </div>
 
+        {/* Confirm Password Field */}
         <div style={{
-          justifyContent: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          color: '#356247',
-          fontSize: '0.875rem',
-          fontFamily: 'Inter',
-          fontWeight: '500',
-          wordWrap: 'break-word',
-          cursor: 'pointer'
+          alignSelf: 'stretch',
+          height: '2.75rem',
+          position: 'relative'
         }}>
-          Forgot password?
+          <div style={{
+            width: '20.5625rem',
+            height: '2.75rem',
+            position: 'absolute',
+            borderRadius: '0.5rem',
+            outline: '1px #D0D0D0 solid',
+            outlineOffset: '-1px'
+          }}>
+            <div style={{
+              left: '0.5rem',
+              top: '0.625rem',
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '0.5rem',
+              display: 'inline-flex'
+            }}>
+              <LockIcon size="1.5rem" color="#828282" />
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                placeholder="Confirm Password"
+                style={{
+                  border: 'none',
+                  outline: 'none',
+                  background: 'transparent',
+                  color: '#828282',
+                  fontSize: '0.875rem',
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  width: '14.375rem'
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={toggleConfirmPasswordVisibility}
+              style={{
+                width: '1.5rem',
+                height: '1.5rem',
+                position: 'absolute',
+                right: '0.625rem',
+                top: '0.625rem',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer'
+              }}
+            >
+              {showConfirmPassword ? (
+                <EyeSlashIcon size="1.5rem" color="#828282" />
+              ) : (
+                <EyeIcon size="1.5rem" color="#828282" />
+              )}
+            </button>
+          </div>
         </div>
       </form>
 
@@ -315,7 +497,7 @@ const SignInFormContent: React.FC = () => {
                         fontWeight: '700',
                         wordWrap: 'break-word'
                       }}>
-                        {loading ? 'Signing in...' : 'Sign In'}
+                        {loading ? 'Creating account...' : 'Sign Up'}
                       </div>
                     </div>
                   </button>
@@ -370,7 +552,7 @@ const SignInFormContent: React.FC = () => {
                 fontWeight: '400',
                 wordWrap: 'break-word'
               }}>
-                Don't have an account? No worries, click below.
+                Already have an account? No worries, click below.
               </div>
               <div style={{
                 alignSelf: 'stretch',
@@ -381,7 +563,7 @@ const SignInFormContent: React.FC = () => {
                 display: 'flex'
               }}>
                 <Link
-                  to="/signup"
+                  to="/signin"
                   style={{
                     alignSelf: 'stretch',
                     height: '2.75rem',
@@ -431,7 +613,7 @@ const SignInFormContent: React.FC = () => {
                       wordWrap: 'break-word',
                       transition: 'color 0.3s ease'
                     }}>
-                      Sign Up
+                      Sign In
                     </div>
                   </div>
                 </Link>
@@ -444,4 +626,4 @@ const SignInFormContent: React.FC = () => {
   );
 };
 
-export default SignInFormContent;
+export default SignUpFormContent;

@@ -5,7 +5,7 @@ import Header from './components/shared/Header';
 import ProtectedRoute from './components/shared/ProtectedRoute';
 import OnboardingFlow from './components/onboarding/OnboardingFlow';
 import AnimatedLogin from './components/auth/AnimatedLogin';
-import SignUpForm from './components/auth/SignUpForm';
+import AnimatedSignUp from './components/auth/AnimatedSignUp';
 import TaskList from './components/tasks/TaskList';
 import './App.css';
 
@@ -20,7 +20,7 @@ function App() {
             
             {/* Full-screen pages without header */}
             <Route path="/signin" element={<AnimatedLogin />} />
-            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/signup" element={<AnimatedSignUp />} />
             
             {/* Regular layout with header for other routes */}
             <Route path="/*" element={

@@ -96,6 +96,31 @@
   align-self: flex-start;
 }
 
+/* Splash Screen Fade Out */
+.splash-fade-out {
+  transition: opacity 0.5s ease-out;
+}
+
+.white-fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  animation: whiteFadeIn 0.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes whiteFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* Onboarding Step Container */
 .onboarding-step {
   width: 100%;

@@ -2,7 +2,9 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 }
+
 
 .animated-auth-container {
   display: flex;
@@ -13,7 +15,7 @@
 }
 
 .auth-card-animated {
-  animation: slideUpFadeIn 1.2s ease-out;
+  animation: slideUpFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: bottom center;
 }
 
@@ -35,7 +37,7 @@
 /* Alternative animation for reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .auth-card-animated {
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   @keyframes fadeIn {
