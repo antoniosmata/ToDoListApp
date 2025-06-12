@@ -1,0 +1,618 @@
+/* 1. CSS Variables and Basic Setup */
+.dashboard :root {
+    --white-100: white;
+    --black-100: #1C1C1C;
+    --black-40: rgba(28, 28, 28, 0.40);
+    --black-20: rgba(28, 28, 28, 0.20);
+    --black-10: rgba(28, 28, 28, 0.10);
+    --black-5: rgba(28, 28, 28, 0.05);
+    --primary-brand: #1C1C1C;
+    --primary-light: #F7F9FB;
+    --primary-purple: #E5ECF6;
+    --secondary-green: #A1E3CB;
+    --secondary-purple: #C6C7F8;
+    --active-link-color: #356247;
+    --font-family: 'Inter', sans-serif;
+}
+
+/* 2. Main Layout */
+.dashboardContainer {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-family);
+    background-color: var(--white-100);
+    color: var(--black-100);
+    font-size: 14px;
+}
+
+.sidebar {
+    width: 212px;
+    padding: 16px;
+    border-right: 1px solid var(--black-10);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-shrink: 0;
+}
+
+.mainWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.mainHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--black-10);
+    flex-shrink: 0;
+}
+
+.mainContent {
+    padding: 24px 28px;
+    flex-grow: 1;
+}
+
+.mainFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    font-size: 12px;
+    color: var(--black-40);
+    flex-shrink: 0;
+}
+
+/* 3. Component Styles */
+
+/* Sidebar */
+.sidebarUser {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--secondary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--black-100);
+}
+
+.username {
+    font-weight: 400;
+    color: var(--black-100);
+}
+
+.menuTitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black-40);
+    padding: 4px 12px;
+    margin: 0 0 4px 0;
+}
+
+.mainNav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--black-100);
+    font-weight: 400;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    text-align: left;
+}
+
+.navItem.active, 
+.navItem:hover {
+    background-color: var(--black-5);
+    color: var(--active-link-color);
+}
+
+.navItem.active .icon, 
+.navItem:hover .icon {
+    fill: var(--active-link-color);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    fill: var(--black-100);
+    flex-shrink: 0;
+}
+
+/* Header */
+.headerLeft, 
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.headerTitle {
+    font-weight: 400;
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconButton:hover {
+    background-color: var(--black-5);
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background-color: var(--black-5);
+    border-radius: 8px;
+    min-width: 160px;
+}
+
+.searchIcon {
+    width: 16px;
+    height: 16px;
+    fill: var(--black-20);
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--black-100);
+    flex-grow: 1;
+    font-family: inherit;
+}
+
+.searchInput::placeholder {
+    color: var(--black-20);
+}
+
+.shortcut {
+    color: var(--black-20);
+    font-size: 12px;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.tabItem {
+    text-decoration: none;
+    color: var(--black-40);
+    padding: 4px 0;
+    position: relative;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.tabItem.active {
+    color: var(--primary-brand);
+    font-weight: 600;
+}
+
+.tabItem.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--primary-brand);
+}
+
+.tabsActions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actionLink {
+    color: var(--black-40);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.actionLink:hover {
+    background-color: var(--black-5);
+}
+
+/* Status Columns */
+.statusColumns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.statusColumn h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 12px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.statusColumn .count {
+    color: var(--black-40);
+    font-weight: 600;
+}
+
+.statusIndicator {
+    height: 4px;
+    background-color: var(--status-color);
+    border-radius: 2px;
+}
+
+/* Tasks Grid */
+.tasksGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.taskCard {
+    background: var(--primary-light);
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.taskCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.taskCard.completed {
+    opacity: 0.7;
+}
+
+.taskCard.completed .taskTitle {
+    text-decoration: line-through;
+}
+
+.taskCard h4,
+.taskTitle {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--black-100);
+}
+
+.taskCard p,
+.taskDescription {
+    font-size: 12px;
+    color: var(--black-40);
+    margin: 0;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.tag {
+    background: var(--primary-purple);
+    color: var(--black-40);
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+.tag.work {
+    background: var(--secondary-green);
+}
+
+.tag.personal {
+    background: var(--secondary-purple);
+}
+
+.tag.other {
+    background: var(--primary-purple);
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.cardMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.taskActions {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.taskCard:hover .taskActions {
+    opacity: 1;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--black-40);
+    transition: background-color 0.2s ease;
+}
+
+.actionButton:hover {
+    background-color: var(--black-10);
+    color: var(--black-100);
+}
+
+.checkbox {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--black-40);
+}
+
+.dates {
+    font-size: 10px;
+    color: var(--black-20);
+}
+
+/* Footer */
+.footerLinks {
+    display: flex;
+    gap: 16px;
+}
+
+.footerLinks button {
+    background: none;
+    border: none;
+    text-decoration: none;
+    color: var(--black-40);
+    transition: color 0.2s ease;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+}
+
+.footerLinks button:hover {
+    color: var(--black-100);
+}
+
+.copyright {
+    color: var(--black-40);
+}
+
+/* Loading and Error States */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    font-size: 14px;
+    color: var(--black-40);
+}
+
+.error {
+    background: #fee;
+    color: #c33;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #fcc;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--black-40);
+}
+
+.emptyState h3 {
+    margin: 0 0 8px 0;
+    color: var(--black-100);
+}
+
+.emptyState p {
+    margin: 0;
+    max-width: 400px;
+}
+
+/* Form Overlay */
+.formOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.formContainer {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.formContainer h2 {
+    margin: 0 0 16px 0;
+    color: var(--black-100);
+}
+
+.formGroup {
+    margin-bottom: 16px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+    color: var(--black-100);
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--black-20);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: var(--active-link-color);
+}
+
+.formActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.submitButton,
+.cancelButton {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.submitButton {
+    background: var(--active-link-color);
+    color: white;
+}
+
+.submitButton:hover {
+    background: #2d5139;
+}
+
+.submitButton:disabled {
+    background: var(--black-20);
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    background: var(--black-10);
+    color: var(--black-100);
+}
+
+.cancelButton:hover {
+    background: var(--black-20);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboardContainer {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        width: 100%;
+        order: 2;
+        border-right: none;
+        border-top: 1px solid var(--black-10);
+    }
+    
+    .mainWrapper {
+        order: 1;
+    }
+    
+    .statusColumns {
+        grid-template-columns: 1fr;
+    }
+    
+    .tasksGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mainHeader,
+    .mainContent,
+    .mainFooter {
+        padding: 16px;
+    }
+}

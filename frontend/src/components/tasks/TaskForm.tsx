@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES } from '../../types';
 import { apiService } from '../../services/api';
+import styles from '../dashboard/Dashboard.module.css';
 
 interface TaskFormProps {
   task?: Task | null;
@@ -82,14 +83,13 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
   };
 
   return (
-    <div className="task-form-overlay">
-      <div className="task-form-container">
-        <h2>{isEditing ? 'Edit Task' : 'Create New Task'}</h2>
+    <>
+      <h2>{isEditing ? 'Edit Task' : 'Create New Task'}</h2>
 
-        {errors && <div className="error-message">{errors}</div>}
+      {errors && <div className={styles.error}>{errors}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="title">Title *</label>
             <input
               type="text"
@@ -104,7 +104,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
@@ -118,7 +118,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="category">Category</label>
             <select
               id="category"
@@ -136,7 +136,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
           </div>
 
           {isEditing && (
-            <div className="form-group checkbox-group">
+            <div className={styles.formGroup}>
               <label>
                 <input
                   type="checkbox"
@@ -150,17 +150,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
             </div>
           )}
 
-          <div className="form-actions">
-            <button type="button" onClick={onCancel} disabled={loading} className="cancel-button">
+          <div className={styles.formActions}>
+            <button type="button" onClick={onCancel} disabled={loading} className={styles.cancelButton}>
               Cancel
             </button>
-            <button type="submit" disabled={loading} className="submit-button">
+            <button type="submit" disabled={loading} className={styles.submitButton}>
               {loading ? 'Saving...' : (isEditing ? 'Update Task' : 'Create Task')}
             </button>
           </div>
         </form>
-      </div>
-    </div>
+    </>
   );
 };
 
