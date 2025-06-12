@@ -4,6 +4,7 @@ import { CiMail, CiLock, CiUser } from "react-icons/ci";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useAuth } from '../../hooks/useAuth';
 import { SignUpDto } from '../../types';
+import { validateField, validateSignUpForm } from '../../utils/validation';
 
 // Type assertions for React 19 compatibility
 const MailIcon = CiMail as React.ComponentType<any>;
@@ -20,7 +21,8 @@ const SignUpFormContent: React.FC = () => {
     password: '',
   });
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useState<string>('');
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -38,27 +40,74 @@ const SignUpFormContent: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     
+    // Update state first
+    let currentPassword = formData.password;
     if (name === 'confirmPassword') {
       setConfirmPassword(value);
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      const updatedFormData = { ...formData, [name]: value };
+      setFormData(updatedFormData);
+      if (name === 'password') {
+        currentPassword = value;
+      }
     }
     
-    if (errors) setErrors('');
+    // Only validate and show errors if the field has been touched
+    if (touched[name]) {
+      const additionalData = name === 'confirmPassword' ? { password: currentPassword } : undefined;
+      const validationResult = validateField(name, value, additionalData);
+      
+      setErrors(prev => ({
+        ...prev,
+        [name]: validationResult.isValid ? '' : validationResult.error || ''
+      }));
+      
+      // If password changed, also revalidate confirm password if it's been touched
+      if (name === 'password' && confirmPassword && touched.confirmPassword) {
+        const confirmValidation = validateField('confirmPassword', confirmPassword, { password: value });
+        setErrors(prev => ({
+          ...prev,
+          confirmPassword: confirmValidation.isValid ? '' : confirmValidation.error || ''
+        }));
+      }
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    // Mark field as touched
+    setTouched(prev => ({ ...prev, [name]: true }));
+    
+    // Validate field
+    let currentPassword = formData.password;
+    if (name === 'password') {
+      currentPassword = value;
+    }
+    
+    const additionalData = name === 'confirmPassword' ? { password: currentPassword } : undefined;
+    const validationResult = validateField(name, value, additionalData);
+    
+    setErrors(prev => ({
+      ...prev,
+      [name]: validationResult.isValid ? '' : validationResult.error || ''
+    }));
   };
 
   const validateForm = (): boolean => {
-    if (formData.password.length < 8) {
-      setErrors('Password must be at least 8 characters long');
-      return false;
-    }
+    const validationResult = validateSignUpForm(formData, confirmPassword);
+    setErrors(validationResult.errors);
     
-    if (formData.password !== confirmPassword) {
-      setErrors('Passwords do not match');
-      return false;
-    }
+    // Mark all fields as touched when form is submitted
+    setTouched({
+      firstName: true,
+      lastName: true,
+      email: true,
+      password: true,
+      confirmPassword: true
+    });
     
-    return true;
+    return validationResult.isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,13 +116,13 @@ const SignUpFormContent: React.FC = () => {
     if (!validateForm()) return;
     
     setLoading(true);
-    setErrors('');
+    setErrors({});
 
     try {
       await signUp(formData);
       navigate('/tasks');
     } catch (error: any) {
-      setErrors(error.response?.data?.message || 'An error occurred. Please try again.');
+      setErrors({ general: error.response?.data?.message || 'An error occurred. Please try again.' });
     } finally {
       setLoading(false);
     }
@@ -117,7 +166,21 @@ const SignUpFormContent: React.FC = () => {
         </div>
       </div>
 
-      {errors && <div className="error-message">{errors}</div>}
+      {errors.general && (
+        <div style={{
+          color: '#dc3545',
+          fontSize: '0.875rem',
+          fontFamily: 'Inter',
+          textAlign: 'center',
+          padding: '0.5rem',
+          backgroundColor: '#f8d7da',
+          border: '1px solid #f5c6cb',
+          borderRadius: '0.25rem',
+          width: '20.5625rem'
+        }}>
+          {errors.general}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} style={{
         width: '20.5625rem',
@@ -131,7 +194,7 @@ const SignUpFormContent: React.FC = () => {
         {/* First Name Field */}
         <div style={{
           width: '20.5625rem',
-          height: '2.75rem',
+          height: touched.firstName && errors.firstName ? '3.75rem' : '2.75rem',
           position: 'relative'
         }}>
           <div style={{
@@ -139,7 +202,7 @@ const SignUpFormContent: React.FC = () => {
             height: '2.75rem',
             position: 'absolute',
             borderRadius: '0.5rem',
-            outline: '1px #D0D0D0 solid',
+            outline: `1px ${touched.firstName && errors.firstName ? '#dc3545' : '#D0D0D0'} solid`,
             outlineOffset: '-1px'
           }}>
             <div style={{
@@ -158,6 +221,7 @@ const SignUpFormContent: React.FC = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 disabled={loading}
                 placeholder="First Name"
@@ -174,12 +238,26 @@ const SignUpFormContent: React.FC = () => {
               />
             </div>
           </div>
+          {touched.firstName && errors.firstName && (
+            <div style={{
+              color: '#dc3545',
+              fontSize: '0.75rem',
+              fontFamily: 'Inter',
+              position: 'absolute',
+              top: '2.85rem',
+              left: '0.5rem',
+              right: '0.5rem',
+              lineHeight: '1.2'
+            }}>
+              {errors.firstName}
+            </div>
+          )}
         </div>
 
         {/* Last Name Field */}
         <div style={{
           width: '20.5625rem',
-          height: '2.75rem',
+          height: touched.lastName && errors.lastName ? '3.75rem' : '2.75rem',
           position: 'relative'
         }}>
           <div style={{
@@ -187,7 +265,7 @@ const SignUpFormContent: React.FC = () => {
             height: '2.75rem',
             position: 'absolute',
             borderRadius: '0.5rem',
-            outline: '1px #D0D0D0 solid',
+            outline: `1px ${touched.lastName && errors.lastName ? '#dc3545' : '#D0D0D0'} solid`,
             outlineOffset: '-1px'
           }}>
             <div style={{
@@ -206,6 +284,7 @@ const SignUpFormContent: React.FC = () => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 disabled={loading}
                 placeholder="Last Name"
@@ -222,12 +301,26 @@ const SignUpFormContent: React.FC = () => {
               />
             </div>
           </div>
+          {touched.lastName && errors.lastName && (
+            <div style={{
+              color: '#dc3545',
+              fontSize: '0.75rem',
+              fontFamily: 'Inter',
+              position: 'absolute',
+              top: '2.85rem',
+              left: '0.5rem',
+              right: '0.5rem',
+              lineHeight: '1.2'
+            }}>
+              {errors.lastName}
+            </div>
+          )}
         </div>
 
         {/* Email Field */}
         <div style={{
           width: '20.5625rem',
-          height: '2.75rem',
+          height: touched.email && errors.email ? '3.75rem' : '2.75rem',
           position: 'relative'
         }}>
           <div style={{
@@ -235,7 +328,7 @@ const SignUpFormContent: React.FC = () => {
             height: '2.75rem',
             position: 'absolute',
             borderRadius: '0.5rem',
-            outline: '1px #D0D0D0 solid',
+            outline: `1px ${touched.email && errors.email ? '#dc3545' : '#D0D0D0'} solid`,
             outlineOffset: '-1px'
           }}>
             <div style={{
@@ -254,6 +347,7 @@ const SignUpFormContent: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 disabled={loading}
                 placeholder="Email"
@@ -270,12 +364,26 @@ const SignUpFormContent: React.FC = () => {
               />
             </div>
           </div>
+          {touched.email && errors.email && (
+            <div style={{
+              color: '#dc3545',
+              fontSize: '0.75rem',
+              fontFamily: 'Inter',
+              position: 'absolute',
+              top: '2.85rem',
+              left: '0.5rem',
+              right: '0.5rem',
+              lineHeight: '1.2'
+            }}>
+              {errors.email}
+            </div>
+          )}
         </div>
 
         {/* Password Field */}
         <div style={{
           alignSelf: 'stretch',
-          height: '2.75rem',
+          height: touched.password && errors.password ? '3.75rem' : '2.75rem',
           position: 'relative'
         }}>
           <div style={{
@@ -283,7 +391,7 @@ const SignUpFormContent: React.FC = () => {
             height: '2.75rem',
             position: 'absolute',
             borderRadius: '0.5rem',
-            outline: '1px #D0D0D0 solid',
+            outline: `1px ${touched.password && errors.password ? '#dc3545' : '#D0D0D0'} solid`,
             outlineOffset: '-1px'
           }}>
             <div style={{
@@ -302,9 +410,10 @@ const SignUpFormContent: React.FC = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 disabled={loading}
-                placeholder="Password (min 8 characters)"
+                placeholder="Password"
                 style={{
                   border: 'none',
                   outline: 'none',
@@ -338,12 +447,26 @@ const SignUpFormContent: React.FC = () => {
               )}
             </button>
           </div>
+          {touched.password && errors.password && (
+            <div style={{
+              color: '#dc3545',
+              fontSize: '0.75rem',
+              fontFamily: 'Inter',
+              position: 'absolute',
+              top: '2.85rem',
+              left: '0.5rem',
+              right: '0.5rem',
+              lineHeight: '1.2'
+            }}>
+              {errors.password}
+            </div>
+          )}
         </div>
 
         {/* Confirm Password Field */}
         <div style={{
           alignSelf: 'stretch',
-          height: '2.75rem',
+          height: touched.confirmPassword && errors.confirmPassword ? '3.75rem' : '2.75rem',
           position: 'relative'
         }}>
           <div style={{
@@ -351,7 +474,7 @@ const SignUpFormContent: React.FC = () => {
             height: '2.75rem',
             position: 'absolute',
             borderRadius: '0.5rem',
-            outline: '1px #D0D0D0 solid',
+            outline: `1px ${touched.confirmPassword && errors.confirmPassword ? '#dc3545' : '#D0D0D0'} solid`,
             outlineOffset: '-1px'
           }}>
             <div style={{
@@ -370,6 +493,7 @@ const SignUpFormContent: React.FC = () => {
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 disabled={loading}
                 placeholder="Confirm Password"
@@ -406,6 +530,20 @@ const SignUpFormContent: React.FC = () => {
               )}
             </button>
           </div>
+          {touched.confirmPassword && errors.confirmPassword && (
+            <div style={{
+              color: '#dc3545',
+              fontSize: '0.75rem',
+              fontFamily: 'Inter',
+              position: 'absolute',
+              top: '2.85rem',
+              left: '0.5rem',
+              right: '0.5rem',
+              lineHeight: '1.2'
+            }}>
+              {errors.confirmPassword}
+            </div>
+          )}
         </div>
       </form>
 
