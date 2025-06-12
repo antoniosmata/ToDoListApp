@@ -14,30 +14,28 @@ interface OnboardingStep3Props {
 const OnboardingStep3: React.FC<OnboardingStep3Props> = ({ onRegister, onSignIn }) => {
   return (
     <div className="onboarding-step page-transition">
-      <header className="step-header">
-        <ProgressIndicator currentStep={3} />
-      </header>
+      <ProgressIndicator currentStep={3} />
       
-      <main className="step-main-final">
+      <div className="content-wrapper-step3">
         <CheckIcon 
-          size="5rem" 
+          size="13.25rem" 
           color="#356247" 
-          className="text-reveal"
+          className="illustration-checkmark text-reveal"
         />
         
-        <div className="step-text-center">
-          <p className="step-heading text-reveal text-reveal-delay-1">Let's Start Knocking out Tasks!</p>
-          <p className="step-description text-reveal text-reveal-delay-2">Productivity just got a new promotion</p>
+        <div className="text-content text-reveal text-reveal-delay-1">
+          <h2 className="primary-heading">Boost Efficiency</h2>
+          <p className="secondary-heading">Your productivity just got a new promotion</p>
         </div>
-      </main>
+      </div>
       
-      <footer className="step-footer">
-        <div className="button-group text-reveal text-reveal-delay-3">
-          <button className="onboarding-button" onClick={onRegister}>
-            Register
+      <footer className="button-container-step3">
+        <div className="button-group-step3 text-reveal text-reveal-delay-2">
+          <button className="button button-secondary" onClick={onSignIn}>
+            Sign In
           </button>
-          <button className="onboarding-button" onClick={onSignIn}>
-            Sign in
+          <button className="button button-primary" onClick={onRegister}>
+            Sign Up
           </button>
         </div>
       </footer>

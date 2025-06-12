@@ -8,9 +8,9 @@ interface ProgressIndicatorProps {
 const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentStep }) => {
   return (
     <div className="progress-indicator">
-      <div className={`progress-dot ${currentStep === 1 ? 'active' : ''}`}></div>
-      <div className={`progress-dot ${currentStep === 2 ? 'active' : ''}`}></div>
-      <div className={`progress-dot ${currentStep === 3 ? 'active' : ''}`}></div>
+      <div className={`progress-bar ${currentStep === 1 ? 'active' : 'inactive'}`}></div>
+      <div className={`progress-bar ${currentStep === 2 ? 'active' : 'inactive'}`}></div>
+      <div className={`progress-bar ${currentStep === 3 ? 'active' : 'inactive'}`}></div>
     </div>
   );
 };

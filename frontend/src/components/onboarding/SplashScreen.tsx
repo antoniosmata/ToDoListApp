@@ -29,8 +29,10 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => 
           />
         </div>
         
-        <p className="splash-subtitle text-reveal text-reveal-delay-2">
-          Your personal task management app.
+        <p className="splash-subtitle-multiline text-reveal text-reveal-delay-2">
+          Your<br/>
+          Personal<br/>
+          Productivity App
         </p>
       </div>
     </div>
