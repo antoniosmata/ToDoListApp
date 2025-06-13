@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES } from '../../types';
+import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES, TaskStatus, TASK_STATUSES, TASK_STATUS_LABELS } from '../../types';
 import { apiService } from '../../services/api';
 import { IoMdCheckmarkCircle, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import styles from '../dashboard/Dashboard.module.css';
@@ -15,6 +15,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
     title: '',
     description: '',
     category: 'Other',
+    status: TASK_STATUSES.TODO as TaskStatus,
     completed: false,
   });
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
         title: task.title,
         description: task.description || '',
         category: task.category,
+        status: task.status || TASK_STATUSES.TODO,
         completed: task.completed,
       });
     }
@@ -63,7 +65,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
           title: formData.title.trim(),
           description: formData.description.trim() || undefined,
           category: formData.category,
-          completed: formData.completed,
+          status: formData.status,
+          completed: formData.status === TASK_STATUSES.FINISHED,
         };
         result = await apiService.updateTask(task.id, updateData);
       } else {
@@ -71,6 +74,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
           title: formData.title.trim(),
           description: formData.description.trim() || undefined,
           category: formData.category,
+          status: formData.status,
         };
         result = await apiService.createTask(createData);
       }
@@ -131,6 +135,23 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
               {TASK_CATEGORIES.map(category => (
                 <option key={category} value={category}>
                   {category}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              disabled={loading}
+            >
+              {Object.values(TASK_STATUSES).map(status => (
+                <option key={status} value={status}>
+                  {TASK_STATUS_LABELS[status]}
                 </option>
               ))}
             </select>

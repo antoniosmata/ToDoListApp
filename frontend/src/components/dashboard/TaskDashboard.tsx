@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Task } from '../../types';
+import { Task, TASK_STATUSES, ensureTaskStatus } from '../../types';
 import { apiService } from '../../services/api';
 import { FiPlusSquare, FiGrid } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -30,7 +30,9 @@ const TaskDashboard: React.FC = () => {
     try {
       setLoading(true);
       const data = await apiService.getTasks();
-      setTasks(data);
+      // Ensure all tasks have a status for backward compatibility
+      const tasksWithStatus = data.map(ensureTaskStatus);
+      setTasks(tasksWithStatus);
       setError('');
     } catch (error: any) {
       setError(error.response?.data?.message || 'Failed to load tasks');
@@ -63,29 +65,33 @@ const TaskDashboard: React.FC = () => {
 
   // Group tasks by status for column view
   const tasksByStatus = useMemo(() => {
-    const yetToStart = filteredTasks.filter(task => !task.completed);
-    const completed = filteredTasks.filter(task => task.completed);
-    
-    // For "In Progress", we could use tasks that are not completed and have been updated recently
-    // For now, we'll use a simple split of incomplete tasks
-    const inProgress = yetToStart.filter((_, index) => index % 3 === 0); // Every 3rd task as example
-    const actualYetToStart = yetToStart.filter((_, index) => index % 3 !== 0);
+    const todoTasks = filteredTasks.filter(task => 
+      task.status === TASK_STATUSES.TODO || (!task.status && !task.completed)
+    );
+    const inProgressTasks = filteredTasks.filter(task => 
+      task.status === TASK_STATUSES.IN_PROGRESS
+    );
+    const finishedTasks = filteredTasks.filter(task => 
+      task.status === TASK_STATUSES.FINISHED || (!task.status && task.completed)
+    );
 
     return {
-      yetToStart: actualYetToStart,
-      inProgress,
-      completed
+      yetToStart: todoTasks,
+      inProgress: inProgressTasks,
+      completed: finishedTasks
     };
   }, [filteredTasks]);
 
   const handleTaskCreated = (newTask: Task) => {
-    setTasks(prev => [newTask, ...prev]);
+    const taskWithStatus = ensureTaskStatus(newTask);
+    setTasks(prev => [taskWithStatus, ...prev]);
     setShowForm(false);
   };
 
   const handleTaskUpdated = (updatedTask: Task) => {
+    const taskWithStatus = ensureTaskStatus(updatedTask);
     setTasks(prev => prev.map(task => 
-      task.id === updatedTask.id ? updatedTask : task
+      task.id === updatedTask.id ? taskWithStatus : task
     ));
     setEditingTask(null);
   };
