@@ -458,8 +458,8 @@ NPM was down recently. Check theur status here: https://status.npmjs.org/
 <!-- Bugs -->
 ## Known Bugs
 
-The sign in page reloads too quickly when the incorrect password is entered. 
-Step 1 from the oboarding tasks may pre-load too quickly, flashing before playing the animation effect
+- The sign in page reloads too quickly when the incorrect password is entered. 
+- Step 1 from the oboarding tasks may pre-load too quickly, flashing before playing the animation effect
 
 This will be patched in a future update. 
 
@@ -468,9 +468,12 @@ This will be patched in a future update.
 <!-- Future -->
 ## Future Updates
 
-In the future, I would like users to be able to add due dates and sort better by to be completed, in progress, and done.
-I would also like to add password reset functionality.
-When hovering over the cards in the dashboard, I would like to play with the color scheme there more as well. 
+In the future, I would like users to:
+- add due dates to tasks
+- sort better by to be completed, in progress, and done.
+- reset their passwords
+
+Also, when hovering over the cards in the dashboard, I would like to play with the color scheme there more as well. 
 I would like to add a calendar page to visually display due dates.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
