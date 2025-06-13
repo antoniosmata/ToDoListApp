@@ -172,6 +172,8 @@ Before running this application, make sure you have the following installed:
 - **Responsive Design**: Works on desktop and mobile devices
 - **Real-time Updates**: Optimistic UI updates for smooth user experience
 - **Secure**: Password hashing with bcrypt and JWT-based authentication
+- **Page Redirect**: 404 and odd URL re-directs
+- **User Onboarding**: At the start of the app, the user is greeted with company propoganda (branding!).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
