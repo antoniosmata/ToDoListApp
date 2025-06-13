@@ -42,7 +42,7 @@ const OnboardingFlow: React.FC = () => {
         setCurrentStep(OnboardingStep.TRANSITION);
         // Mark onboarding as started when we move past splash screen
         markOnboardingCompleted();
-      }, 2000); // 2 seconds for splash screen fade
+      }, 2800); // 2.8 seconds for splash screen fade
 
       return () => clearTimeout(timer);
     } else if (currentStep === OnboardingStep.TRANSITION) {
