@@ -115,7 +115,7 @@ Before running this application, make sure you have the following installed:
    ```
 ---
 
-***Normally, you'd have to create an env after this step. But I have added the environment variables to the docker-compose.yml for demo purposes! So disregard this step for demo purposes.***
+***Normally, you'd have to create an env after this step. But I have added the environment variables to the docker-compose.yml for demo purposes! So disregard this step for now.***
 
 
 2. Configure environment variables
@@ -185,6 +185,9 @@ Before running this application, make sure you have the following installed:
 ### Design System - Figma
 
 **🎨 View the complete design system and prototypes:**
+
+
+
 - **[Figma Design File](https://www.figma.com/proto/Xelk8dJcGCfFNGfSAeRxEf/Task-Manager?page-id=0%3A1&node-id=7-3&starting-point-node-id=7%3A3&show-proto-sidebar=1&t=NNV5q2ILFMCmyIXM-1)** - Interactive prototypes, component library, and design specifications
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -477,9 +480,12 @@ In the future, I would like users to:
 - sort better by to be completed, in progress, and done.
 - reset their passwords
 
-Also, when hovering over the cards in the dashboard, I would like to play with the color scheme there more as well. 
-I would like to add a calendar page to visually display due dates.
+Also,
+- when hovering over the cards in the dashboard, I would like to play with the color scheme
+- add a calendar page to visually display due dates
+- as the project grows, create folders for components and their corresponding css classes
 
+  
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
