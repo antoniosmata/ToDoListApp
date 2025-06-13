@@ -2,11 +2,7 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -20,11 +16,6 @@
     <a href="#api-endpoints"><strong>Explore the API docs »</strong></a>
     <br />
     <br />
-    <a href="http://localhost:3000">View Demo</a>
-    ·
-    <a href="https://github.com/your-username/task-manager/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/your-username/task-manager/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -75,21 +66,79 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A modern, full-stack task management application built with ASP.NET Core and React. This application provides secure user authentication, comprehensive task management capabilities, and a responsive design that works seamlessly across all devices.
+This is a to-do list app! I wanted to create a grounding experience for the user, so I incorporated lots of earthy-tones to provide a more relaxing experience while you complete your tasks.
 
-The project demonstrates best practices in full-stack development, including JWT authentication, RESTful API design, containerization with Docker, and modern React patterns with TypeScript.
+<img width="1440" alt="Screenshot 2025-06-13 at 9 26 33 AM" src="https://github.com/user-attachments/assets/5ffbb4a4-f8d8-4951-9937-65051da50e75" />
 
-### Features
+<!-- GETTING STARTED -->
+## Getting Started
 
-- **User Authentication**: Secure sign up, sign in, and sign out with JWT tokens
-- **Task Management**: Create, read, update, and delete personal tasks
-- **Task Categories**: Organize tasks by Work, Personal, or Other categories
-- **Task Filtering**: Filter tasks by category for better organization
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Real-time Updates**: Optimistic UI updates for smooth user experience
-- **Secure**: Password hashing with bcrypt and JWT-based authentication
+To get a local copy up and running follow these steps.
+
+### Prerequisites
+
+Before running this application, make sure you have the following installed:
+
+* [Docker](https://docs.docker.com/get-docker/) (version 20.x or higher)
+* [Docker Compose](https://docs.docker.com/compose/install/) (version 2.x or higher)
+* [Git](https://git-scm.com/) for cloning the repository
+
+### Installation
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/antoniosmata/ToDoListApp
+   cd TaskManager
+   ```
+
+2. Configure environment variables
+
+   **Important**: Create the `.env` file before running the application.
+
+   The application uses environment variables for configuration. Copy `.env.example` to `.env` and update the values:
+
+  ```bash
+    # Database Configuration
+    POSTGRES_DB=taskmanager
+    POSTGRES_USER=admin
+    POSTGRES_PASSWORD=your_secure_database_password
+    
+    # JWT Configuration  
+    JWT_SECRET_KEY=your_secure_jwt_secret_32_chars_minimum
+    JWT_ISSUER=TaskManagerAPI
+    JWT_AUDIENCE=TaskManagerAPI
+    
+    # Application Configuration
+    ASPNETCORE_ENVIRONMENT=Development
+    REACT_APP_API_URL=http://localhost:5001/api
+
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+3. Run with Docker Compose
+   ```sh
+   docker-compose up --build
+   ```
+
+   or
+
+  ```sh
+  docker-compose down -v 
+  docker-compose build --no-cache 
+  docker-compose up
+  ```
+
+5. Access the application
+   - **Frontend Application**: [http://localhost:3000](http://localhost:3000)
+   - **Backend API**: [http://localhost:5001](http://localhost:5001)
+   - **API Documentation (Swagger)**: [http://localhost:5001/swagger](http://localhost:5001/swagger)
+  
+   - When you first load up, ensure you do not have browser cache directing you to http://localhost:3000/signup. The user flow should start from http://localhost:3000, but
+   - at the moment browser cache may interfere with that.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ### Built With
 
@@ -105,95 +154,22 @@ The project demonstrates best practices in full-stack development, including JWT
 <!-- DESIGN -->
 ## Design
 
-The Task Manager application was designed with a focus on user experience, modern aesthetics, and intuitive navigation. The design emphasizes clean interfaces, smooth animations, and a cohesive visual language throughout the application.
-
-### Design System
+### Design System - Figma
 
 **🎨 View the complete design system and prototypes:**
-- **[Figma Design File](https://www.figma.com/design/example-link)** - Interactive prototypes, component library, and design specifications
-
-### Key Design Features
-
-- **Modern UI/UX**: Clean, minimalist interface with carefully chosen typography and spacing
-- **Video Backgrounds**: Immersive video backgrounds for authentication and onboarding flows
-- **Smooth Animations**: Thoughtful transitions and micro-interactions throughout the app
-- **Responsive Design**: Mobile-first approach ensuring seamless experience across all devices
-- **Accessibility**: WCAG compliant color contrasts and keyboard navigation support
-- **Dark Mode Ready**: Design system prepared for future dark mode implementation
-
-### Design Highlights
-
-- **Onboarding Experience**: Multi-step guided tour introducing users to key features
-- **Dashboard Views**: Both grid and kanban-style column layouts for task management
-- **Interactive Elements**: Hover states, loading animations, and visual feedback
-- **Consistent Branding**: Cohesive color palette and visual identity throughout
-
-The Figma file includes detailed component specifications, interaction flows, and responsive breakpoints that guided the development of this application.
+- **[Figma Design File](https://www.figma.com/proto/Xelk8dJcGCfFNGfSAeRxEf/Task-Manager?page-id=0%3A1&node-id=7-3&starting-point-node-id=7%3A3&show-proto-sidebar=1&t=NNV5q2ILFMCmyIXM-1)** - Interactive prototypes, component library, and design specifications
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
-## Getting Started
+### Features
 
-To get a local copy up and running follow these simple steps.
-
-### Prerequisites
-
-Before running this application, make sure you have the following installed:
-
-* [Docker](https://docs.docker.com/get-docker/) (version 20.x or higher)
-* [Docker Compose](https://docs.docker.com/compose/install/) (version 2.x or higher)
-* [Git](https://git-scm.com/) for cloning the repository
-
-### Installation
-
-1. Clone the repository
-   ```sh
-   git clone https://github.com/your-username/task-manager.git
-   cd task-manager
-   ```
-
-2. Configure environment variables
-   ```sh
-   cp .env.example .env
-   ```
-   
-   **Important**: Update the passwords and secrets in your `.env` file before running the application.
-
-3. Run with Docker Compose
-   ```sh
-   docker-compose up --build
-   ```
-
-4. Access the application
-   - **Frontend Application**: [http://localhost:3000](http://localhost:3000)
-   - **Backend API**: [http://localhost:5001](http://localhost:5001)
-   - **API Documentation (Swagger)**: [http://localhost:5001/swagger](http://localhost:5001/swagger)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ENVIRONMENT VARIABLES -->
-## Environment Variables
-
-The application uses environment variables for configuration. Copy `.env.example` to `.env` and update the values:
-
-```bash
-# Database Configuration
-POSTGRES_DB=taskmanager
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=your_secure_database_password
-
-# JWT Configuration  
-JWT_SECRET_KEY=your_secure_jwt_secret_32_chars_minimum
-JWT_ISSUER=TaskManagerAPI
-JWT_AUDIENCE=TaskManagerAPI
-
-# Application Configuration
-ASPNETCORE_ENVIRONMENT=Development
-REACT_APP_API_URL=http://localhost:5001/api
-```
-
-**Important**: Update the passwords and secrets in your `.env` file before running the application.
+- **User Authentication**: Secure sign up, sign in, and sign out with JWT tokens
+- **Task Management**: Create, read, update, and delete personal tasks
+- **Task Categories**: Organize tasks by Work, Personal, or Other categories
+- **Task Filtering**: Filter tasks by category for better organization
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Real-time Updates**: Optimistic UI updates for smooth user experience
+- **Secure**: Password hashing with bcrypt and JWT-based authentication
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -328,7 +304,7 @@ TaskManager/
 
 ### Security Features
 
-- **Password Requirements**: Minimum 8 characters
+- **Password Requirements**: Minimum 8 characters, 1 special, 1 capital, 1 number
 - **Password Hashing**: BCrypt with salt rounds for secure storage
 - **JWT Tokens**: 24-hour expiration with automatic refresh handling
 - **API Protection**: All task endpoints require valid authentication
@@ -435,14 +411,6 @@ docker-compose down -v
 docker-compose up --build
 ```
 
-**Frontend Build Errors**:
-```bash
-# Clear npm cache and rebuild
-docker-compose down
-docker system prune -f
-docker-compose up --build
-```
-
 ### Logs and Debugging
 
 View container logs:
@@ -455,6 +423,8 @@ docker-compose logs -f backend
 docker-compose logs -f frontend
 docker-compose logs -f postgres
 ```
+
+NPM was down recently. Check theur status here: https://status.npmjs.org/ 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
