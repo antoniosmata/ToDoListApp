@@ -236,8 +236,7 @@ https://github.com/user-attachments/assets/5788c2a8-60be-49d8-8730-5eb7b54dd967
 3. **Database (PostgreSQL)**
    - Stores user accounts and tasks
    - Automatic schema creation on startup
-   - Data persistence across container restarts
-
+  
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Project Structure
