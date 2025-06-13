@@ -115,7 +115,7 @@ Before running this application, make sure you have the following installed:
    ```
 ---
 
-***Normally, you'd have to create an env after this step. But I have added the environment variables to the docker-compose.yml for demo purposes! So disregard this step for now.***
+***Normally, you'd have to create an env after this step. But I have added the environment variables to the docker-compose.yml for demo purposes! So disregard this step for now. You can move on to step 3.***
 
 
 2. Configure environment variables
