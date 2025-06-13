@@ -485,8 +485,9 @@ Also,
 - when hovering over the cards in the dashboard, I would like to play with the color scheme
 - add a calendar page to visually display due dates
 - as the project grows, create folders for components and their corresponding css classes
+- employ more modular css files
+- configure certain systems for production (signed certificates, etc.)
 
-  
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
