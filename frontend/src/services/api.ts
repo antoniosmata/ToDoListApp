@@ -81,6 +81,25 @@ class ApiService {
   async deleteTask(id: number): Promise<void> {
     await this.api.delete(`/tasks/${id}`);
   }
+
+  // Session validation
+  async validateSession(): Promise<{ valid: boolean; serverStartTime?: string }> {
+    try {
+      const response: AxiosResponse<{ valid: boolean; serverStartTime: string }> = await this.api.get('/auth/validate-session');
+      return response.data;
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        return { valid: false };
+      }
+      throw error;
+    }
+  }
+
+  // Health check with server start time
+  async getServerHealth(): Promise<{ serverStartTime: string; status: string }> {
+    const response: AxiosResponse<{ serverStartTime: string; status: string }> = await this.api.get('/health');
+    return response.data;
+  }
 }
 
 export const apiService = new ApiService();

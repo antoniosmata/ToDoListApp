@@ -1,0 +1,97 @@
+/* AnimatedSignUp specific styles - extends AnimatedLogin */
+
+.animatedSignUpWrapper {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.animatedAuthContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  padding-top: 3rem;
+}
+
+.authCardAnimated {
+  animation: slideUpFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: bottom center;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Alternative animation for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .authCardAnimated {
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+/* Ensure auth card styles are preserved */
+.authCardAnimated .authCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .animatedAuthContainer {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+  
+  .authCardAnimated .authCard {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animatedAuthContainer {
+    padding: 0.5rem;
+    padding-top: 2rem;
+    min-height: auto;
+  }
+  
+  .authCardAnimated .authCard {
+    padding: 1.5rem;
+  }
+}
+
+/* Handle very short screens */
+@media (max-height: 700px) {
+  .animatedAuthContainer {
+    align-items: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+}

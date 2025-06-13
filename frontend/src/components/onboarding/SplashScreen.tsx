@@ -35,11 +35,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => 
           <CheckIcon 
             size="3.75rem" 
             color="white"
-            className="splash-icon text-reveal text-reveal-delay-1"
+            className="splash-icon text-reveal text-reveal-delay-2"
           />
         </div>
         
-        <p className="splash-subtitle-multiline text-reveal text-reveal-delay-2">
+        <p className="splash-subtitle-multiline text-reveal text-reveal-delay-1">
           Your<br/>
           Personal<br/>
           Productivity App

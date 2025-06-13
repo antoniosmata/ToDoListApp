@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SplashScreen from '../onboarding/SplashScreen';
 import VideoBackground from '../shared/VideoBackground';
-import SignInFormContent from './SignInFormContent';
+import SignInForm from './SignInForm';
 import './AnimatedLogin.css';
 
 enum AnimationPhase {
@@ -70,7 +70,7 @@ const AnimatedLogin: React.FC<AnimatedLoginProps> = ({ skipSplash = false }) => 
           >
             <div className="animated-auth-container">
               <div className="auth-card-animated">
-                <SignInFormContent />
+                <SignInForm />
               </div>
             </div>
           </VideoBackground>

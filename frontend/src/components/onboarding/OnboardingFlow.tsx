@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRouting } from '../../hooks/useRouting';
 import SplashScreen from './SplashScreen';
 import OnboardingStep1 from './OnboardingStep1';
 import OnboardingStep2 from './OnboardingStep2';
@@ -8,6 +9,7 @@ import './OnboardingFlow.css';
 
 enum OnboardingStep {
   SPLASH = 0,
+  TRANSITION = 0.5,
   STEP1 = 1,
   STEP2 = 2,
   STEP3 = 3
@@ -20,6 +22,7 @@ const OnboardingFlow: React.FC = () => {
   const step2Ref = useRef<HTMLDivElement>(null);
   const step3Ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { markOnboardingCompleted } = useRouting();
 
   const handleNext = useCallback(() => {
     if (currentVisibleStep < 3) {
@@ -36,12 +39,26 @@ const OnboardingFlow: React.FC = () => {
   useEffect(() => {
     if (currentStep === OnboardingStep.SPLASH) {
       const timer = setTimeout(() => {
+        setCurrentStep(OnboardingStep.TRANSITION);
+        // Mark onboarding as started when we move past splash screen
+        markOnboardingCompleted();
+      }, 2800); // 2.8 seconds for splash screen fade
+
+      return () => clearTimeout(timer);
+    } else if (currentStep === OnboardingStep.TRANSITION) {
+      // Auto-scroll to Step 1 after brief transition
+      const timer = setTimeout(() => {
         setCurrentStep(OnboardingStep.STEP1);
-      }, 2000); // 2 seconds for splash screen fade
+        // Scroll to first step
+        step1Ref.current?.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 1000); // Longer transition
 
       return () => clearTimeout(timer);
     }
-  }, [currentStep]);
+  }, [currentStep, markOnboardingCompleted]);
 
 
   // Add Intersection Observer for page visibility detection
@@ -92,6 +109,18 @@ const OnboardingFlow: React.FC = () => {
     return (
       <div className="onboarding-flow">
         <SplashScreen />
+      </div>
+    );
+  }
+
+  if (currentStep === OnboardingStep.TRANSITION) {
+    return (
+      <div className="onboarding-flow">
+        <div className="continuous-scroll-container">
+          <div className="scroll-step" style={{ background: 'white', minHeight: '100vh' }}>
+            {/* Blank transition page */}
+          </div>
+        </div>
       </div>
     );
   }

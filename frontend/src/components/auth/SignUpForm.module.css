@@ -1,0 +1,51 @@
+/* SignUp Form Specific Styles */
+
+.signUpForm {
+  align-self: stretch;
+  height: 2.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  display: inline-flex;
+}
+
+.signUpButtonContainer {
+  flex: 1 1 0;
+  height: 2.5rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+}
+
+/* Input group with error spacing */
+.inputGroupWithError {
+  width: 20.5625rem;
+  position: relative;
+  margin-bottom: 0.25rem;
+}
+
+.inputGroupWithError:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Mobile optimizations for form spacing */
+@media (max-width: 768px) {
+  .inputGroupWithError {
+    width: 100%;
+    max-width: 20.5625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inputGroupWithError {
+    margin-bottom: 0.125rem;
+  }
+}
+
+/* Optimize for short screens */
+@media (max-height: 700px) {
+  .inputGroupWithError {
+    margin-bottom: 0.125rem;
+  }
+}

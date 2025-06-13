@@ -47,6 +47,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(false);
   }, []);
 
+  // Periodic session validation for server restart detection
+  useEffect(() => {
+    if (!user) return;
+
+    const validateSession = async () => {
+      try {
+        const { valid } = await apiService.validateSession();
+        if (!valid) {
+          // Session invalid - likely server restart
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setUser(null);
+          window.location.href = '/';
+        }
+      } catch (error) {
+        // Network error or server unreachable - don't logout
+        console.error('Session validation error:', error);
+      }
+    };
+
+    // Validate immediately when user logs in
+    validateSession();
+
+    // Set up periodic validation every 10 minutes
+    const interval = setInterval(validateSession, 10 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [user]);
+
   const signIn = async (data: SignInDto) => {
     try {
       const response = await apiService.signIn(data);

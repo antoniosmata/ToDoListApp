@@ -38,7 +38,7 @@ const OnboardingStep2: React.FC<OnboardingStep2Props> = ({ onNext, currentVisibl
   }, []);
 
   return (
-    <div ref={stepRef} className="onboarding-step page-transition">
+    <div ref={stepRef} className="onboarding-step">
       <ProgressIndicator currentStep={currentVisibleStep} />
       
       <div className="content-wrapper-step2">
