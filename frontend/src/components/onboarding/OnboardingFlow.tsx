@@ -54,7 +54,7 @@ const OnboardingFlow: React.FC = () => {
           behavior: 'smooth',
           block: 'start'
         });
-      }, 500); // Longer transition
+      }, 1000); // Longer transition
 
       return () => clearTimeout(timer);
     }

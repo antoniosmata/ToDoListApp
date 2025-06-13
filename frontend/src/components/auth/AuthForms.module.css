@@ -298,7 +298,7 @@
 
 /* Divider styles */
 .dividerSection {
-  width: 16.3125rem;
+  width: var(--auth-form-width);
   justify-content: center;
   align-items: center;
   gap: 0.1875rem;

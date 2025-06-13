@@ -131,7 +131,7 @@ const SignInFormContent: React.FC = () => {
           {errors.password && <div className={sharedStyles.errorMessage}>{errors.password}</div>}
         </div>
 
-        <div className={styles.forgotPasswordWrapper}>
+        <div className={styles.forgotPasswordWrapper} style={{ visibility: 'hidden' }}>
           Forgot password? 
         </div>
       </form>
