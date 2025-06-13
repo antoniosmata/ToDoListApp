@@ -11,7 +11,7 @@
   <h3 align="center">Personal Task Manager</h3>
 
   <p align="center">
-    A full-stack web application for managing personal tasks with user authentication
+    A full-stack web application for managing personal tasks.
     <br />
     <a href="#api-endpoints"><strong>Explore the API docs »</strong></a>
     <br />
