@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Task } from '../../types';
 import { apiService } from '../../services/api';
+import { FiPlusSquare, FiGrid } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import DashboardSidebar from './DashboardSidebar';
 import DashboardHeader from './DashboardHeader';
 import StatusColumn from './StatusColumn';
@@ -145,10 +147,10 @@ const TaskDashboard: React.FC = () => {
             </button>
             <div className={styles.tabsActions}>
               <button 
-                className={styles.actionLink}
+                className={styles.tabStyleActionLink}
                 onClick={handleAddTask}
               >
-                <span className={styles.plusIcon}>+</span>
+                <FiPlusSquare className={styles.actionIcon} />
                 Add Task
               </button>
               <button 
@@ -156,13 +158,11 @@ const TaskDashboard: React.FC = () => {
                 onClick={() => setViewMode(viewMode === 'columns' ? 'grid' : 'columns')}
                 title={`Switch to ${viewMode === 'columns' ? 'grid' : 'column'} view`}
               >
-                <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
-                  {viewMode === 'columns' ? (
-                    <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-                  ) : (
-                    <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
-                  )}
-                </svg>
+                {viewMode === 'columns' ? (
+                  <FiGrid className={styles.icon} />
+                ) : (
+                  <GiHamburgerMenu className={styles.icon} />
+                )}
               </button>
             </div>
           </div>
@@ -181,7 +181,7 @@ const TaskDashboard: React.FC = () => {
               </p>
               {!searchTerm && (
                 <button onClick={handleAddTask} className={styles.actionLink}>
-                  <span className={styles.plusIcon}>+</span>
+                  <FiPlusSquare className={styles.actionIcon} />
                   Create your first task
                 </button>
               )}
@@ -191,7 +191,7 @@ const TaskDashboard: React.FC = () => {
               {viewMode === 'columns' ? (
                 <div className={styles.statusColumns}>
                   <StatusColumn
-                    title="Yet to Start"
+                    title="To do"
                     tasks={tasksByStatus.yetToStart}
                     count={tasksByStatus.yetToStart.length}
                     statusColor="var(--secondary-green)"
@@ -236,11 +236,11 @@ const TaskDashboard: React.FC = () => {
         </main>
 
         <footer className={styles.mainFooter}>
-          <div className={styles.copyright}>© 2025 Task Manager</div>
+          <div className={styles.copyright}>© 2025 Leap</div>
           <div className={styles.footerLinks}>
-            <button onClick={(e) => e.preventDefault()}>About</button>
-            <button onClick={(e) => e.preventDefault()}>Support</button>
-            <button onClick={(e) => e.preventDefault()}>Contact Us</button>
+            {/* <button onClick={(e) => e.preventDefault()}>About</button> */}
+            <a href="https://www.linkedin.com/in/antoniosmata/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/antoniosmata/ToDoListApp" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </footer>
       </div>

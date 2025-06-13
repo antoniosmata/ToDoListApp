@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES } from '../../types';
 import { apiService } from '../../services/api';
+import { IoMdCheckmarkCircle, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import styles from '../dashboard/Dashboard.module.css';
 
 interface TaskFormProps {
@@ -137,14 +138,19 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
 
           {isEditing && (
             <div className={styles.formGroup}>
-              <label>
-                <input
-                  type="checkbox"
-                  name="completed"
-                  checked={formData.completed}
-                  onChange={handleChange}
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                <button
+                  type="button"
+                  onClick={() => handleChange({ target: { name: 'completed', type: 'checkbox', checked: !formData.completed } } as any)}
                   disabled={loading}
-                />
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                >
+                  {formData.completed ? (
+                    <IoMdCheckmarkCircle className={styles.checkmarkIcon} />
+                  ) : (
+                    <IoMdCheckmarkCircleOutline className={styles.checkmarkIcon} />
+                  )}
+                </button>
                 Mark as completed
               </label>
             </div>

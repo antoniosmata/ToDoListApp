@@ -8,9 +8,10 @@
     --black-5: rgba(28, 28, 28, 0.05);
     --primary-brand: #1C1C1C;
     --primary-light: #F7F9FB;
-    --primary-purple: #7B68A6;
+    --primary-purple: #B8A5D6;
     --secondary-green: #356247;
-    --secondary-purple: #8B7355;
+    --secondary-purple: #C4A57B;
+    --light-green: #A1E3CB;
     --active-link-color: #356247;
     --font-family: 'Inter', sans-serif;
 }
@@ -21,7 +22,7 @@ body {
     font-family: var(--font-family);
     background-color: var(--white-100);
     color: var(--black-100);
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 /* 2. Main Layout */
@@ -32,16 +33,16 @@ body {
     font-family: var(--font-family);
     background-color: var(--white-100);
     color: var(--black-100);
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .sidebar {
-    width: 212px;
-    padding: 16px;
-    border-right: 1px solid var(--black-10);
+    width: 13.25rem;
+    padding: 1rem;
+    border-right: 0.0625rem solid var(--black-10);
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 1.5rem;
     flex-shrink: 0;
 }
 
@@ -56,13 +57,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 28px;
-    border-bottom: 1px solid var(--black-10);
+    padding: 1.25rem 1.75rem;
+    border-bottom: 0.0625rem solid var(--black-10);
     flex-shrink: 0;
 }
 
 .mainContent {
-    padding: 24px 28px;
+    padding: 1.5rem 1.75rem;
     flex-grow: 1;
 }
 
@@ -70,8 +71,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 28px;
-    font-size: 12px;
+    padding: 1.25rem 1.75rem;
+    font-size: 0.75rem;
     color: var(--black-40);
     flex-shrink: 0;
 }
@@ -82,20 +83,20 @@ body {
 .sidebarUser {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px;
+    gap: 0.5rem;
+    padding: 0.5rem;
 }
 
 .avatar {
-    width: 24px;
-    height: 24px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    background-color: var(--secondary-green);
+    background-color: var(--light-green);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 0.875rem;
     color: var(--black-100);
 }
 
@@ -105,11 +106,11 @@ body {
 }
 
 .menuTitle {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 400;
     color: var(--black-40);
-    padding: 4px 12px;
-    margin: 0 0 4px 0;
+    padding: 0.25rem 0.75rem;
+    margin: 0 0 0.25rem 0;
 }
 
 .mainNav ul {
@@ -121,9 +122,9 @@ body {
 .navItem {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 12px;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
     text-decoration: none;
     color: var(--black-100);
     font-weight: 400;
@@ -149,8 +150,8 @@ body {
 }
 
 .icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     fill: var(--black-100);
     flex-shrink: 0;
 }
@@ -160,7 +161,7 @@ body {
 .headerRight {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .headerTitle {
@@ -170,9 +171,9 @@ body {
 .iconButton {
     background: none;
     border: none;
-    padding: 4px;
+    padding: 0.25rem;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,16 +186,16 @@ body {
 .searchBar {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
     background-color: var(--black-5);
-    border-radius: 8px;
-    min-width: 160px;
+    border-radius: 0.5rem;
+    min-width: 10rem;
 }
 
 .searchIcon {
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     fill: var(--black-20);
 }
 
@@ -213,21 +214,21 @@ body {
 
 .shortcut {
     color: var(--black-20);
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 /* Tabs */
 .tabs {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .tabItem {
     text-decoration: none;
     color: var(--black-40);
-    padding: 4px 0;
+    padding: 0.25rem 0;
     position: relative;
     cursor: pointer;
     background: none;
@@ -244,10 +245,10 @@ body {
 .tabItem.active::after {
     content: '';
     position: absolute;
-    bottom: -1px;
+    bottom: -0.0625rem;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 0.125rem;
     background-color: var(--primary-brand);
 }
 
@@ -255,7 +256,7 @@ body {
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .actionLink {
@@ -266,11 +267,11 @@ body {
     border: none;
     font-family: inherit;
     font-size: inherit;
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.375rem;
 }
 
 .actionLink:hover {
@@ -279,35 +280,56 @@ body {
     text-decoration: underline;
 }
 
-.plusIcon {
-    width: 16px;
-    height: 16px;
+.tabStyleActionLink {
+    color: var(--black-40);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.25rem 0;
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    background: var(--black-20);
-    color: white;
-    border-radius: 3px;
-    line-height: 1;
+    gap: 0.375rem;
+}
+
+.tabStyleActionLink:hover {
+    color: var(--primary-brand);
+    font-weight: 600;
+}
+
+.tabStyleActionLink:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -0.0625rem;
+    left: 0;
+    right: 0;
+    height: 0.125rem;
+    background-color: var(--primary-brand);
+}
+
+.actionIcon {
+    width: 1rem;
+    height: 1rem;
 }
 
 /* Status Columns */
 .statusColumns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 28px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .statusColumn h3 {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
-    margin: 0 0 12px 8px;
+    margin: 0 0 0.75rem 0.5rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .statusColumn .count {
@@ -316,32 +338,35 @@ body {
 }
 
 .statusIndicator {
-    height: 4px;
+    height: 0.25rem;
     background-color: var(--status-color, var(--black-20));
-    border-radius: 2px;
+    border-radius: 0.125rem;
+    margin-bottom: 1.25rem;
 }
 
 /* Tasks Grid */
 .tasksGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+    gap: 1.75rem;
 }
 
 .taskCard {
     background: var(--primary-light);
-    padding: 24px;
-    border-radius: 16px;
+    padding: 1.5rem;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    height: 12.5rem;
+    min-width: 17.5rem;
 }
 
 .taskCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
 }
 
 .taskCard.completed {
@@ -354,7 +379,7 @@ body {
 
 .taskCard h4,
 .taskTitle {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     margin: 0;
     color: var(--black-100);
@@ -362,7 +387,7 @@ body {
 
 .taskCard p,
 .taskDescription {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--black-40);
     margin: 0;
     line-height: 1.5;
@@ -371,10 +396,10 @@ body {
 
 .tag {
     background: var(--primary-purple);
-    color: var(--black-40);
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 8px;
+    color: var(--white-100);
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.5rem;
     align-self: flex-start;
     font-weight: 500;
 }
@@ -395,18 +420,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+    margin-top: 0.5rem;
 }
 
 .cardMeta {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .taskActions {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -418,9 +443,9 @@ body {
 .actionButton {
     background: none;
     border: none;
-    padding: 4px;
+    padding: 0.25rem;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     color: var(--black-40);
     transition: background-color 0.2s ease;
 }
@@ -435,7 +460,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
-    margin-right: 8px;
+    margin-right: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -446,59 +471,37 @@ body {
     opacity: 0.6;
 }
 
-.checkmark {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.2s ease;
+.checkmarkIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--secondary-green);
+    transition: color 0.2s ease;
 }
 
-.checkmark.unchecked {
-    border: 2px solid var(--secondary-green);
-    color: transparent;
-    background: transparent;
-}
-
-.checkmark.checked {
-    background: var(--secondary-green);
-    color: white;
-    border: 2px solid var(--secondary-green);
-}
-
-.checkmarkButton:hover .checkmark.unchecked {
-    border-color: var(--active-link-color);
-    background: rgba(53, 98, 71, 0.1);
-}
-
-.checkmarkButton:hover .checkmark.checked {
-    background: var(--active-link-color);
-    border-color: var(--active-link-color);
+.checkmarkButton:hover .checkmarkIcon {
+    color: var(--active-link-color);
 }
 
 .stats {
     display: flex;
-    gap: 16px;
-    font-size: 12px;
+    gap: 1rem;
+    font-size: 0.75rem;
     color: var(--black-40);
 }
 
 .dates {
-    font-size: 10px;
+    font-size: 0.625rem;
     color: var(--black-20);
 }
 
 /* Footer */
 .footerLinks {
     display: flex;
-    gap: 16px;
+    gap: 1rem;
 }
 
-.footerLinks button {
+.footerLinks button,
+.footerLinks a {
     background: none;
     border: none;
     text-decoration: none;
@@ -510,7 +513,8 @@ body {
     padding: 0;
 }
 
-.footerLinks button:hover {
+.footerLinks button:hover,
+.footerLinks a:hover {
     color: var(--black-100);
 }
 
@@ -523,18 +527,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
-    font-size: 14px;
+    padding: 2.5rem;
+    font-size: 0.875rem;
     color: var(--black-40);
 }
 
 .error {
     background: #fee;
     color: #c33;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #fcc;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 0.0625rem solid #fcc;
 }
 
 .emptyState {
@@ -542,19 +546,19 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 20px;
+    padding: 3.75rem 1.25rem;
     text-align: center;
     color: var(--black-40);
 }
 
 .emptyState h3 {
-    margin: 0 0 8px 0;
+    margin: 0 0 0.5rem 0;
     color: var(--black-100);
 }
 
 .emptyState p {
     margin: 0;
-    max-width: 400px;
+    max-width: 25rem;
 }
 
 /* Form Overlay */
@@ -573,26 +577,26 @@ body {
 
 .formContainer {
     background: white;
-    padding: 24px;
-    border-radius: 16px;
-    max-width: 500px;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    max-width: 31.25rem;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
 }
 
 .formContainer h2 {
-    margin: 0 0 16px 0;
+    margin: 0 0 1rem 0;
     color: var(--black-100);
 }
 
 .formGroup {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .formGroup label {
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
     font-weight: 500;
     color: var(--black-100);
 }
@@ -601,11 +605,11 @@ body {
 .formGroup textarea,
 .formGroup select {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--black-20);
-    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    border: 0.0625rem solid var(--black-20);
+    border-radius: 0.5rem;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .formGroup input:focus,
@@ -617,19 +621,19 @@ body {
 
 .formActions {
     display: flex;
-    gap: 12px;
+    gap: 0.75rem;
     justify-content: flex-end;
-    margin-top: 24px;
+    margin-top: 1.5rem;
 }
 
 .submitButton,
 .cancelButton {
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
     border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: background-color 0.2s ease;
 }
 
@@ -668,7 +672,7 @@ body {
         width: 100%;
         order: 2;
         border-right: none;
-        border-top: 1px solid var(--black-10);
+        border-top: 0.0625rem solid var(--black-10);
     }
     
     .mainWrapper {
@@ -686,6 +690,6 @@ body {
     .mainHeader,
     .mainContent,
     .mainFooter {
-        padding: 16px;
+        padding: 1rem;
     }
 }

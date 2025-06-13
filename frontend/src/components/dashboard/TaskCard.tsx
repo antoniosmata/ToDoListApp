@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Task } from '../../types';
 import { apiService } from '../../services/api';
+import { IoMdCheckmarkCircleOutline, IoMdCheckmarkCircle } from "react-icons/io";
+import { HiPencil } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
 import styles from './Dashboard.module.css';
 
 interface TaskCardProps {
@@ -75,9 +78,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
             className={styles.actionButton}
             title="Edit task"
           >
-            <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-            </svg>
+            <HiPencil className={styles.icon} />
           </button>
           <button
             onClick={handleDelete}
@@ -85,9 +86,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
             className={styles.actionButton}
             title="Delete task"
           >
-            <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 102 0v3a1 1 0 11-2 0V9zm4 0a1 1 0 10-2 0v3a1 1 0 102 0V9z" clipRule="evenodd" />
-            </svg>
+            <MdDelete className={styles.icon} />
           </button>
         </div>
       </div>
@@ -106,9 +105,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
             className={styles.checkmarkButton}
             title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}
           >
-            <div className={`${styles.checkmark} ${task.completed ? styles.checked : styles.unchecked}`}>
-              ✓
-            </div>
+            {task.completed ? (
+              <IoMdCheckmarkCircle className={styles.checkmarkIcon} />
+            ) : (
+              <IoMdCheckmarkCircleOutline className={styles.checkmarkIcon} />
+            )}
           </button>
           <div className={styles.dates}>
             <div>Created: {formatDate(task.createdAt)}</div>
