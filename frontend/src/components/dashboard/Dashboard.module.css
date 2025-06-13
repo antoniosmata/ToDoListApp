@@ -1,5 +1,5 @@
 /* 1. CSS Variables and Basic Setup */
-.dashboard :root {
+:root {
     --white-100: white;
     --black-100: #1C1C1C;
     --black-40: rgba(28, 28, 28, 0.40);
@@ -8,11 +8,20 @@
     --black-5: rgba(28, 28, 28, 0.05);
     --primary-brand: #1C1C1C;
     --primary-light: #F7F9FB;
-    --primary-purple: #E5ECF6;
-    --secondary-green: #A1E3CB;
-    --secondary-purple: #C6C7F8;
+    --primary-purple: #7B68A6;
+    --secondary-green: #356247;
+    --secondary-purple: #8B7355;
     --active-link-color: #356247;
     --font-family: 'Inter', sans-serif;
+}
+
+/* Global body styles for dashboard */
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--white-100);
+    color: var(--black-100);
+    font-size: 14px;
 }
 
 /* 2. Main Layout */
@@ -259,10 +268,29 @@
     font-size: inherit;
     padding: 4px 8px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .actionLink:hover {
     background-color: var(--black-5);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.plusIcon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    background: var(--black-20);
+    color: white;
+    border-radius: 3px;
+    line-height: 1;
 }
 
 /* Status Columns */
@@ -289,7 +317,7 @@
 
 .statusIndicator {
     height: 4px;
-    background-color: var(--status-color);
+    background-color: var(--status-color, var(--black-20));
     border-radius: 2px;
 }
 
@@ -326,7 +354,7 @@
 
 .taskCard h4,
 .taskTitle {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0;
     color: var(--black-100);
@@ -402,9 +430,54 @@
     color: var(--black-100);
 }
 
-.checkbox {
-    margin-right: 8px;
+.checkmarkButton {
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkmarkButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.checkmark.unchecked {
+    border: 2px solid var(--secondary-green);
+    color: transparent;
+    background: transparent;
+}
+
+.checkmark.checked {
+    background: var(--secondary-green);
+    color: white;
+    border: 2px solid var(--secondary-green);
+}
+
+.checkmarkButton:hover .checkmark.unchecked {
+    border-color: var(--active-link-color);
+    background: rgba(53, 98, 71, 0.1);
+}
+
+.checkmarkButton:hover .checkmark.checked {
+    background: var(--active-link-color);
+    border-color: var(--active-link-color);
 }
 
 .stats {

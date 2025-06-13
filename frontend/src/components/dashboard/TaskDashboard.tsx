@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Task } from '../../types';
 import { apiService } from '../../services/api';
-import { TbLayoutGridFilled } from "react-icons/tb";
-import { GiHamburgerMenu } from "react-icons/gi";
 import DashboardSidebar from './DashboardSidebar';
 import DashboardHeader from './DashboardHeader';
 import StatusColumn from './StatusColumn';
@@ -150,6 +148,7 @@ const TaskDashboard: React.FC = () => {
                 className={styles.actionLink}
                 onClick={handleAddTask}
               >
+                <span className={styles.plusIcon}>+</span>
                 Add Task
               </button>
               <button 
@@ -157,11 +156,13 @@ const TaskDashboard: React.FC = () => {
                 onClick={() => setViewMode(viewMode === 'columns' ? 'grid' : 'columns')}
                 title={`Switch to ${viewMode === 'columns' ? 'grid' : 'column'} view`}
               >
-                {viewMode === 'columns' ? (
-                  <TbLayoutGridFilled className={styles.icon} />
-                ) : (
-                  <GiHamburgerMenu className={styles.icon} />
-                )}
+                <svg className={styles.icon} viewBox="0 0 20 20" fill="currentColor">
+                  {viewMode === 'columns' ? (
+                    <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                  ) : (
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+                  )}
+                </svg>
               </button>
             </div>
           </div>
@@ -180,6 +181,7 @@ const TaskDashboard: React.FC = () => {
               </p>
               {!searchTerm && (
                 <button onClick={handleAddTask} className={styles.actionLink}>
+                  <span className={styles.plusIcon}>+</span>
                   Create your first task
                 </button>
               )}
