@@ -1,4 +1,4 @@
-
+ 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew`enter code here`/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
@@ -188,7 +188,7 @@ Before running this application, make sure you have the following installed:
 
 https://github.com/user-attachments/assets/5788c2a8-60be-49d8-8730-5eb7b54dd967
 
-*Disclaimer: Video compression changed the white from the sign up/sign in button colors*
+*Disclaimer: Video compression changed the white text from the sign up/sign in button colors*
 
 - **[Figma Design File](https://www.figma.com/proto/Xelk8dJcGCfFNGfSAeRxEf/Task-Manager?page-id=0%3A1&node-id=7-3&starting-point-node-id=7%3A3&show-proto-sidebar=1&t=NNV5q2ILFMCmyIXM-1)** - Interactive prototypes, component library, and design specifications
 
