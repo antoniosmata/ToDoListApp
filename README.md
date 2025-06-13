@@ -30,7 +30,12 @@
         <li><a href="#features">Features</a></li>
       </ul>
     </li>
-    <li><a href="#design">Design</a></li>
+    <li>
+      <a href="#design">Design</a>
+       <ul>
+        <li><a href="#design-system---figma">Design System</a></li>
+      </ul>
+    </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -41,23 +46,41 @@
     <li>
       <a href="#architecture">Architecture</a>
       <ul>
+        <li><a href="#services">Services</a></li>
         <li><a href="#project-structure">Project Structure</a></li>
       </ul>
     </li>
     <li>
-      <a href="#environment-variables">Environment Variables</a>
-    </li>
-    <li>
       <a href="#security">Security</a>
+      <ul>
+        <li><a href="#security-features">Security Features</a></li>
+        <li><a href="#authentication-setup">Authentication Setup</a></li>
+      </ul>
     </li>
     <li>
-      <a href="#database-schema">Database Schema</a>
+        <a href="#database-schema">Database Schema</a>
+        <ul>
+            <li><a href="#users-table">Users Table</a></li>
+            <li><a href="#tasks-table">Tasks Table</a></li>
+        </ul>
     </li>
     <li>
-      <a href="#api-endpoints">API Endpoints</a>
+        <a href="#api-endpoints">API Endpoints</a>
+        <ul>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#tasks-requires-authentication">Tasks</a></li>
+            <li><a href="#requestresponse-examples">Examples</a></li>
+        </ul>
     </li>
-    <li><a href="#troubleshooting">Troubleshooting</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <ul>
+            <li><a href="#common-issues">Common Issues</a></li>
+            <li><a href="#logs-and-debugging">Logs and Debugging</a></li>
+        </ul>
+    </li>
+    <li><a href="#known-bugs">Known Bugs</a></li>
+    <li><a href="#future-updates">Future Updates</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
