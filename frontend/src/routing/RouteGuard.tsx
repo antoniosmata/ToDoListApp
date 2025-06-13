@@ -13,6 +13,7 @@ import TaskDashboard from '../components/dashboard/TaskDashboard';
 
 /**
  * Component mapping for route configuration
+ * Maps string component names to actual React components
  */
 const componentMap = {
   OnboardingFlow,
@@ -23,11 +24,18 @@ const componentMap = {
 };
 
 /**
- * RouteGuard - Master routing controller that applies all necessary guards
+ * Master routing component that manages all application routes with appropriate guards
+ * Applies authentication and onboarding guards based on route configuration
+ * Handles component mapping and guard composition for each route
+ * @returns JSX element containing all application routes with guards
  */
 const RouteGuard: React.FC = () => {
   /**
-   * Wrap a component with the appropriate guards based on route config
+   * Wraps a component with the appropriate guards based on route configuration
+   * Applies guards in the correct order: OnboardingGuard -> AuthGuard -> Component
+   * @param Component - React component to wrap with guards
+   * @param config - Route configuration object containing guard requirements
+   * @returns JSX element with component wrapped in appropriate guards
    */
   const wrapWithGuards = (
     Component: React.ComponentType, 

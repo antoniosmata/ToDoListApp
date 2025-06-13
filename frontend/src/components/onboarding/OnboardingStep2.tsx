@@ -6,11 +6,26 @@ import './OnboardingFlow.css';
 // Type assertion for React 19 compatibility
 const CalendarIcon = LuCalendarCheck as React.ComponentType<any>;
 
+/**
+ * Props for the OnboardingStep2 component
+ * @interface OnboardingStep2Props
+ * @property onNext - Callback function to navigate to the next step
+ * @property currentVisibleStep - Current visible step number for progress indication
+ */
 interface OnboardingStep2Props {
   onNext: () => void;
   currentVisibleStep?: number;
 }
 
+/**
+ * Second step of the onboarding flow highlighting deadline and scheduling features
+ * Features a calendar icon and messaging about planning and productivity
+ * Uses Intersection Observer to trigger animations when the step becomes visible
+ * @param props - Component props
+ * @param props.onNext - Function to call when user wants to proceed to next step
+ * @param props.currentVisibleStep - Current step number for progress bar (defaults to 2)
+ * @returns JSX element representing the second onboarding step
+ */
 const OnboardingStep2: React.FC<OnboardingStep2Props> = ({ onNext, currentVisibleStep = 2 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const stepRef = useRef<HTMLDivElement>(null);

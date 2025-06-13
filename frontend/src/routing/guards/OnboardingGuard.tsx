@@ -2,14 +2,25 @@ import React, { useEffect } from 'react';
 import { useRouting } from '../../hooks/useRouting';
 import { ROUTE_PATHS } from '../routeConfig';
 
+/**
+ * Props for the OnboardingGuard component
+ * @interface OnboardingGuardProps
+ * @property children - Child components to render when onboarding is completed
+ * @property requiresOnboarding - Whether this route requires completed onboarding
+ */
 interface OnboardingGuardProps {
   children: React.ReactNode;
   requiresOnboarding?: boolean;
 }
 
 /**
- * OnboardingGuard ensures users complete the splash screen/onboarding
- * before accessing certain routes like sign-in or sign-up
+ * Guard component that ensures users complete the onboarding flow
+ * Redirects users to splash screen if they haven't completed onboarding
+ * Used to protect routes like sign-in and sign-up that require onboarding completion
+ * @param props - Component props
+ * @param props.children - Components to render when onboarding requirements are met
+ * @param props.requiresOnboarding - Whether onboarding completion is required (defaults to true)
+ * @returns JSX element with children or null during redirect
  */
 const OnboardingGuard: React.FC<OnboardingGuardProps> = ({ 
   children, 

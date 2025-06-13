@@ -5,11 +5,26 @@ import './OnboardingFlow.css';
 // Type assertion for React 19 compatibility
 const CheckIcon = IoMdCheckmarkCircleOutline as React.ComponentType<any>;
 
+/**
+ * Props for the OnboardingStep1 component
+ * @interface OnboardingStep1Props
+ * @property onNext - Callback function to navigate to the next step
+ * @property currentVisibleStep - Current visible step number for progress indication
+ */
 interface OnboardingStep1Props {
   onNext: () => void;
   currentVisibleStep?: number;
 }
 
+/**
+ * First step of the onboarding flow showcasing task organization by categories
+ * Features animated reveal effects and demonstrates the app's categorization feature
+ * Uses Intersection Observer to trigger animations when the step becomes visible
+ * @param props - Component props
+ * @param props.onNext - Function to call when user wants to proceed to next step
+ * @param props.currentVisibleStep - Current step number for progress bar (defaults to 1)
+ * @returns JSX element representing the first onboarding step
+ */
 const OnboardingStep1: React.FC<OnboardingStep1Props> = ({ onNext, currentVisibleStep = 1 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const stepRef = useRef<HTMLDivElement>(null);

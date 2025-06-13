@@ -1,21 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES, TaskStatus, TASK_STATUSES, TASK_STATUS_LABELS } from '../../types';
+import { Task, CreateTaskDto, UpdateTaskDto, TASK_CATEGORIES } from '../../types';
 import { apiService } from '../../services/api';
 import { IoMdCheckmarkCircle, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import styles from '../dashboard/Dashboard.module.css';
 
+/**
+ * Props for the TaskForm component
+ * @interface TaskFormProps
+ * @property task - Optional task object for editing (null for creating new task)
+ * @property onSuccess - Callback function called when task is successfully created/updated
+ * @property onCancel - Callback function called when user cancels the form
+ */
 interface TaskFormProps {
   task?: Task | null;
   onSuccess: (task: Task) => void;
   onCancel: () => void;
 }
 
+/**
+ * Form component for creating and editing tasks
+ * Handles both create and update operations based on whether a task is provided
+ * @param props - Component props
+ * @param props.task - Optional task to edit (creates new task if not provided)
+ * @param props.onSuccess - Called with the created/updated task on successful submission
+ * @param props.onCancel - Called when user cancels the form
+ * @returns JSX element representing the task form
+ */
 const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     category: 'Other',
-    status: TASK_STATUSES.TODO as TaskStatus,
     completed: false,
   });
   const [loading, setLoading] = useState(false);
@@ -29,12 +44,16 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
         title: task.title,
         description: task.description || '',
         category: task.category,
-        status: task.status || TASK_STATUSES.TODO,
         completed: task.completed,
       });
     }
   }, [task]);
 
+  /**
+   * Handles form input changes and updates the form state
+   * Clears errors when user starts typing
+   * @param e - Change event from form inputs
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
@@ -46,6 +65,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
     if (errors) setErrors('');
   };
 
+  /**
+   * Handles form submission for creating or updating a task
+   * Validates required fields and calls appropriate API method
+   * @param e - Form submission event
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -65,8 +89,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
           title: formData.title.trim(),
           description: formData.description.trim() || undefined,
           category: formData.category,
-          status: formData.status,
-          completed: formData.status === TASK_STATUSES.FINISHED,
+          completed: formData.completed,
         };
         result = await apiService.updateTask(task.id, updateData);
       } else {
@@ -74,7 +97,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
           title: formData.title.trim(),
           description: formData.description.trim() || undefined,
           category: formData.category,
-          status: formData.status,
         };
         result = await apiService.createTask(createData);
       }
@@ -140,28 +162,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onCancel }) => {
             </select>
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="status">Status</label>
-            <select
-              id="status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              disabled={loading}
-            >
-              {Object.values(TASK_STATUSES).map(status => (
-                <option key={status} value={status}>
-                  {TASK_STATUS_LABELS[status]}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {isEditing && (
             <div className={styles.formGroup}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <button
                   type="button"
+                  /**
+                   * Toggles the task completion status
+                   * Creates a synthetic event to reuse the handleChange logic
+                   */
                   onClick={() => handleChange({ target: { name: 'completed', type: 'checkbox', checked: !formData.completed } } as any)}
                   disabled={loading}
                   style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}

@@ -13,6 +13,12 @@ const LockIcon = CiLock as React.ComponentType<any>;
 const EyeIcon = FaRegEye as React.ComponentType<any>;
 const EyeSlashIcon = FaRegEyeSlash as React.ComponentType<any>;
 
+/**
+ * Sign-in form component that handles user authentication
+ * Provides email/password login with form validation and error handling
+ * Features password visibility toggle and user-friendly error messages
+ * @returns JSX element representing the sign-in form
+ */
 const SignInFormContent: React.FC = () => {
   const [formData, setFormData] = useState<SignInDto>({
     email: '',
@@ -24,16 +30,28 @@ const SignInFormContent: React.FC = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
+  /**
+   * Toggles the visibility of the password field
+   */
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  /**
+   * Handles form input changes and clears errors
+   * @param e - Input change event
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (Object.keys(errors).length > 0) setErrors({});
   };
 
+  /**
+   * Handles form submission and user authentication
+   * Processes API errors and provides user-friendly error messages
+   * @param e - Form submission event
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
