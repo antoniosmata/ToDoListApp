@@ -22,11 +22,17 @@ services:
       dockerfile: Dockerfile
     container_name: taskmanager-backend
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
-      - JwtSettings__SecretKey=${JWT_SECRET_KEY}
-      - JwtSettings__Issuer=${JWT_ISSUER}
-      - JwtSettings__Audience=${JWT_AUDIENCE}
+      # - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      # - ConnectionStrings__DefaultConnection=Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      # - JwtSettings__SecretKey=${JWT_SECRET_KEY}
+      # - JwtSettings__Issuer=${JWT_ISSUER}
+      # - JwtSettings__Audience=${JWT_AUDIENCE}
+      # - For demo purposes:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=taskmanager;Username=admin;Password=dev_password_123
+      - JwtSettings__SecretKey=development_jwt_secret_key_32_characters_minimum_required_for_security
+      - JwtSettings__Issuer=TaskManagerAPI
+      - JwtSettings__Audience=TaskManagerAPI
     ports:
       - "5001:80"
     depends_on:
