@@ -89,7 +89,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a to-do list app! I wanted to create a grounding experience for the user, so I incorporated lots of earthy-tones to provide a more relaxing experience while you complete your tasks.
+This is a to-do list app! I wanted to create a relaxing experience for the user, so I incorporated lots of earthy-tones to provide a feeling of peace while you log in to complete your tasks.
 
 <img width="1440" alt="Screenshot 2025-06-13 at 9 26 33 AM" src="https://github.com/user-attachments/assets/5ffbb4a4-f8d8-4951-9937-65051da50e75" />
 
