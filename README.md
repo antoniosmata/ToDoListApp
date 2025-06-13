@@ -186,7 +186,7 @@ Before running this application, make sure you have the following installed:
 
 **🎨 View the complete design system and prototypes:**
 
-
+https://github.com/user-attachments/assets/7b24e04a-0fdd-4032-a3fd-89c291aaca7d
 
 - **[Figma Design File](https://www.figma.com/proto/Xelk8dJcGCfFNGfSAeRxEf/Task-Manager?page-id=0%3A1&node-id=7-3&starting-point-node-id=7%3A3&show-proto-sidebar=1&t=NNV5q2ILFMCmyIXM-1)** - Interactive prototypes, component library, and design specifications
 
