@@ -13,6 +13,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
+  padding-top: 3rem;
 }
 
 .authCardAnimated {
@@ -66,7 +67,7 @@
   .animatedAuthContainer {
     padding: 1rem;
     align-items: flex-start;
-    padding-top: 2rem;
+    padding-top: 3rem;
   }
   
   .authCardAnimated .authCard {
@@ -77,7 +78,7 @@
 @media (max-width: 480px) {
   .animatedAuthContainer {
     padding: 0.5rem;
-    padding-top: 1rem;
+    padding-top: 2rem;
     min-height: auto;
   }
   
@@ -90,7 +91,7 @@
 @media (max-height: 700px) {
   .animatedAuthContainer {
     align-items: flex-start;
-    padding-top: 1rem;
+    padding-top: 2rem;
     padding-bottom: 1rem;
   }
 }

@@ -132,7 +132,7 @@ const SignInFormContent: React.FC = () => {
         </div>
 
         <div className={styles.forgotPasswordWrapper}>
-          Forgot password?
+          Forgot password? 
         </div>
       </form>
 
