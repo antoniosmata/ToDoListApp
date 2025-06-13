@@ -1,8 +1,8 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew`enter code here`/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
-[![Stargazers][stars-shield]][stars-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -86,7 +86,7 @@ Before running this application, make sure you have the following installed:
 ### Installation
 
 1. Clone the repository
-   ```sh
+```sh
    git clone https://github.com/antoniosmata/ToDoListApp
    cd TaskManager
    ```
@@ -98,17 +98,17 @@ Before running this application, make sure you have the following installed:
    The application uses environment variables for configuration. Copy `.env.example` to `.env` and update the values:
 
   ```bash
-    # Database Configuration
+  # Database Configuration
     POSTGRES_DB=taskmanager
     POSTGRES_USER=admin
     POSTGRES_PASSWORD=your_secure_database_password
     
-    # JWT Configuration  
+  # JWT Configuration  
     JWT_SECRET_KEY=your_secure_jwt_secret_32_chars_minimum
     JWT_ISSUER=TaskManagerAPI
     JWT_AUDIENCE=TaskManagerAPI
     
-    # Application Configuration
+  # Application Configuration
     ASPNETCORE_ENVIRONMENT=Development
     REACT_APP_API_URL=http://localhost:5001/api
 
@@ -117,17 +117,19 @@ Before running this application, make sure you have the following installed:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 3. Run with Docker Compose
-   ```sh
-   docker-compose up --build
+```sh
+ docker-compose up --build
    ```
 
    or
 
-  ```sh
+```sh
   docker-compose down -v 
   docker-compose build --no-cache 
   docker-compose up
   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 5. Access the application
    - **Frontend Application**: [http://localhost:3000](http://localhost:3000)
