@@ -159,8 +159,7 @@ Before running this application, make sure you have the following installed:
    - **Backend API**: [http://localhost:5001](http://localhost:5001)
    - **API Documentation (Swagger)**: [http://localhost:5001/swagger](http://localhost:5001/swagger)
   
-   - When you first load up, ensure you do not have browser cache directing you to http://localhost:3000/signup. The user flow should start from http://localhost:3000, but
-   - at the moment browser cache may interfere with that.
+   - When you first load up, ensure you do not have browser cache directing you to http://localhost:3000/signup. The user flow should start from http://localhost:3000, but at the moment browser cache may interfere with that.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -460,6 +459,7 @@ NPM was down recently. Check theur status here: https://status.npmjs.org/
 
 - The sign in page reloads too quickly when the incorrect password is entered. 
 - Step 1 from the oboarding tasks may pre-load too quickly, flashing before playing the animation effect
+- Browser cache may interfere with page redirect to splash page. The splash page should be the first page the user is met with. 
 
 This will be patched in a future update. 
 
