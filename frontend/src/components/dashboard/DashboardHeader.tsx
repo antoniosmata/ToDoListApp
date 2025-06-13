@@ -7,15 +7,13 @@ interface DashboardHeaderProps {
   searchTerm: string;
   onSearchChange: (searchTerm: string) => void;
   onAddTask: () => void;
-  sidebarToggled?: boolean;
-  onSidebarToggle?: () => void;
+  onSidebarToggle: () => void;
 }
 
 const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   searchTerm,
   onSearchChange,
   onAddTask,
-  sidebarToggled = false,
   onSidebarToggle,
 }) => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,15 +31,13 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   return (
     <header className={styles.mainHeader}>
       <div className={styles.headerLeft}>
-        {onSidebarToggle && (
-          <button 
-            className={styles.iconButton} 
-            aria-label="Toggle Sidebar"
-            onClick={onSidebarToggle}
-          >
-            <HiMenuAlt2 className={styles.icon} />
-          </button>
-        )}
+        <button 
+          className={`${styles.iconButton} ${styles.mobileMenuButton}`} 
+          aria-label="Toggle Sidebar"
+          onClick={onSidebarToggle}
+        >
+          <HiMenuAlt2 className={styles.icon} />
+        </button>
         <span className={styles.headerTitle}>Welcome back! How far will you leap today?</span>
       </div>
       

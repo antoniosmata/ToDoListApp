@@ -20,6 +20,7 @@ const TaskDashboard: React.FC = () => {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [activeView, setActiveView] = useState<'overview' | 'tasks'>('tasks');
   const [viewMode, setViewMode] = useState<'columns' | 'grid'>('columns');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     loadTasks();
@@ -108,6 +109,19 @@ const TaskDashboard: React.FC = () => {
     setShowForm(true);
   };
 
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleSidebarClose = () => {
+    setSidebarOpen(false);
+  };
+
+  // Close sidebar when clicking outside on mobile
+  const handleOverlayClick = () => {
+    setSidebarOpen(false);
+  };
+
   if (loading) {
     return (
       <div className={styles.dashboardContainer}>
@@ -120,11 +134,19 @@ const TaskDashboard: React.FC = () => {
 
   return (
     <div className={styles.dashboardContainer}>
+      {/* Mobile overlay */}
+      <div 
+        className={`${styles.sidebarOverlay} ${sidebarOpen ? styles.open : ''}`}
+        onClick={handleOverlayClick}
+      />
+      
       <DashboardSidebar
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
         activeView={activeView}
         onViewChange={setActiveView}
+        isOpen={sidebarOpen}
+        onClose={handleSidebarClose}
       />
 
       <div className={styles.mainWrapper}>
@@ -132,6 +154,7 @@ const TaskDashboard: React.FC = () => {
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           onAddTask={handleAddTask}
+          onSidebarToggle={handleSidebarToggle}
         />
 
         <main className={styles.mainContent}>

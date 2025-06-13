@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import VideoBackground from '../shared/VideoBackground';
-import SignUpFormContent from './SignUpFormContent';
-import './AnimatedLogin.css';
+import SignUpForm from './SignUpForm';
+import styles from './AnimatedSignUp.module.css';
 
 const AnimatedSignUp: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -12,16 +12,16 @@ const AnimatedSignUp: React.FC = () => {
   }, []);
 
   return (
-    <div className="animated-login-wrapper">
+    <div className={styles.animatedSignUpWrapper}>
       <VideoBackground
         videoSrc="/stream.mp4"
         overlayOpacity={0.3}
         playOnce={false}
         showChildren={showForm}
       >
-        <div className="animated-auth-container">
-          <div className="auth-card-animated">
-            <SignUpFormContent />
+        <div className={styles.animatedAuthContainer}>
+          <div className={styles.authCardAnimated}>
+            <SignUpForm />
           </div>
         </div>
       </VideoBackground>

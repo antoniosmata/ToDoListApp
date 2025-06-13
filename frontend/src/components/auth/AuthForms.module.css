@@ -1,0 +1,422 @@
+/* Auth Forms Shared Styles */
+
+/* CSS Custom Properties for consistent theming */
+:root {
+  --auth-primary-color: #356247;
+  --auth-primary-hover: #2d5139;
+  --auth-border-color: #D0D0D0;
+  --auth-text-primary: #343434;
+  --auth-text-secondary: #828282;
+  --auth-error-color: #dc3545;
+  --auth-divider-color: #E6E9FA;
+  --auth-form-width: 20.5625rem;
+  --auth-input-height: 2.75rem;
+  --auth-border-radius: 0.5rem;
+  --auth-button-border-radius: 0.625rem;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Main auth container */
+.authContainer {
+  width: 100%;
+  height: 100%;
+  padding: 2.5rem 2rem;
+  background: white;
+  border-radius: var(--auth-border-radius);
+  backdrop-filter: blur(12px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  display: inline-flex;
+}
+
+/* Auth card header */
+.authHeader {
+  padding-bottom: 2rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  display: inline-flex;
+}
+
+.authTitle {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--auth-text-primary);
+  font-size: 1.625rem;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+/* Form wrapper */
+.formWrapper {
+  width: var(--auth-form-width);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 1rem;
+  display: flex;
+}
+
+/* Input group styles */
+.inputGroup {
+  width: var(--auth-form-width);
+  height: var(--auth-input-height);
+  position: relative;
+}
+
+.inputWrapper {
+  width: var(--auth-form-width);
+  height: var(--auth-input-height);
+  position: absolute;
+  border-radius: var(--auth-border-radius);
+  outline: 1px var(--auth-border-color) solid;
+  outline-offset: -1px;
+}
+
+.inputContent {
+  left: 0.5rem;
+  top: 0.625rem;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  display: inline-flex;
+}
+
+.input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--auth-text-secondary);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  width: 16.25rem;
+}
+
+.inputWithButton {
+  width: 14.375rem;
+}
+
+.input::placeholder {
+  color: var(--auth-text-secondary);
+}
+
+.inputIcon {
+  flex-shrink: 0;
+}
+
+/* Eye button for password fields */
+.eyeButton {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  right: 0.625rem;
+  top: 0.625rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eyeButton:hover {
+  opacity: 0.7;
+}
+
+/* Error message styles */
+.errorMessage {
+  color: var(--auth-error-color);
+  font-size: 0.75rem;
+  font-family: var(--font-inter);
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+/* General error message */
+.generalError {
+  color: var(--auth-error-color);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  text-align: center;
+  padding: 0.5rem;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: var(--auth-border-radius);
+  margin-bottom: 1rem;
+}
+
+/* Link text styles */
+.linkText {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--auth-primary-color);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  word-wrap: break-word;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.linkText:hover {
+  opacity: 0.8;
+}
+
+/* Button section wrapper */
+.buttonSection {
+  width: var(--auth-form-width);
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  display: inline-flex;
+}
+
+.buttonContainer {
+  flex: 1 1 0;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  display: inline-flex;
+}
+
+.buttonGroup {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1.5rem;
+  display: flex;
+}
+
+.buttonActions {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+/* Primary button (filled) */
+.primaryButton {
+  align-self: stretch;
+  height: var(--auth-input-height);
+  padding: 0 6rem;
+  background: var(--auth-primary-color);
+  border-radius: var(--auth-button-border-radius);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  display: flex;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--auth-primary-hover);
+}
+
+.primaryButton:disabled {
+  background: var(--auth-text-secondary);
+  cursor: not-allowed;
+}
+
+/* Secondary button (outlined) */
+.secondaryButton {
+  align-self: stretch;
+  height: var(--auth-input-height);
+  padding: 0 1.5rem;
+  border-radius: var(--auth-button-border-radius);
+  outline: 1px var(--auth-primary-color) solid;
+  outline-offset: -1px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  display: flex;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.secondaryButton:hover {
+  background-color: var(--auth-primary-color);
+}
+
+.secondaryButton:hover .secondaryButtonText {
+  color: white;
+}
+
+/* Button content wrapper */
+.buttonContent {
+  height: 2.5rem;
+  padding: 0.6875rem 0;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  display: inline-flex;
+}
+
+.buttonText {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.secondaryButtonText {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--auth-primary-color);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  word-wrap: break-word;
+  transition: color 0.3s ease;
+}
+
+/* Divider styles */
+.dividerSection {
+  width: 16.3125rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1875rem;
+  display: inline-flex;
+}
+
+.dividerLine {
+  flex: 1 1 0;
+  height: 0.0625rem;
+  background: var(--auth-divider-color);
+}
+
+.dividerText {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--auth-text-secondary);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+/* Bottom section styles */
+.bottomSection {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
+}
+
+.bottomText {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--auth-text-secondary);
+  font-size: 0.875rem;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.bottomButtonWrapper {
+  align-self: stretch;
+  height: var(--auth-input-height);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .authContainer {
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .formWrapper,
+  .inputGroup,
+  .inputWrapper,
+  .buttonSection {
+    width: 100%;
+    max-width: var(--auth-form-width);
+  }
+  
+  .input,
+  .inputWithButton {
+    width: calc(100% - 3rem);
+  }
+  
+  .authHeader {
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .authContainer {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+  }
+  
+  .authTitle {
+    font-size: 1.5rem;
+  }
+  
+  .authHeader {
+    padding-bottom: 0.5rem;
+  }
+  
+  .formWrapper {
+    gap: 0.75rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    padding: 0 2rem;
+  }
+}
+
+/* Optimize for short screens */
+@media (max-height: 700px) {
+  .authContainer {
+    gap: 1rem;
+  }
+  
+  .authHeader {
+    padding-bottom: 0.5rem;
+  }
+  
+  .formWrapper {
+    gap: 0.75rem;
+  }
+  
+  .buttonGroup {
+    gap: 1rem;
+  }
+}

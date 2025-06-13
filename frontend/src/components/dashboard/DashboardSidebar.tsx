@@ -11,6 +11,8 @@ interface DashboardSidebarProps {
   onCategoryChange: (category: string) => void;
   activeView: 'overview' | 'tasks';
   onViewChange: (view: 'overview' | 'tasks') => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
@@ -18,6 +20,8 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   onCategoryChange,
   activeView,
   onViewChange,
+  isOpen = false,
+  onClose,
 }) => {
   const { user, signOut } = useAuth();
 
@@ -31,8 +35,24 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     }
   };
 
+  const handleCategoryChange = (category: string) => {
+    onCategoryChange(category);
+    // Close sidebar on mobile when selection is made
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleViewChange = (view: 'overview' | 'tasks') => {
+    onViewChange(view);
+    // Close sidebar on mobile when selection is made
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
       <div className={styles.sidebarUser}>
         <div className={styles.avatar}>
           {user ? getInitials(user.firstName, user.lastName) : 'U'}
@@ -48,7 +68,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           <li>
             <button 
               className={`${styles.navItem} ${activeView === 'tasks' ? styles.active : ''}`}
-              onClick={() => onViewChange('tasks')}
+              onClick={() => handleViewChange('tasks')}
             >
               <FaTasks className={styles.icon} />
               Tasks
@@ -64,7 +84,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           <li>
             <button 
               className={`${styles.navItem} ${selectedCategory === '' ? styles.active : ''}`}
-              onClick={() => onCategoryChange('')}
+              onClick={() => handleCategoryChange('')}
             >
               <GiHamburgerMenu className={styles.icon} />
               All Tasks
@@ -74,7 +94,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             <li key={category}>
               <button 
                 className={`${styles.navItem} ${selectedCategory === category ? styles.active : ''}`}
-                onClick={() => onCategoryChange(category)}
+                onClick={() => handleCategoryChange(category)}
               >
                 <FaTag className={styles.icon} />
                 {category}
