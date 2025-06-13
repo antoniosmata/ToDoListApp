@@ -6,6 +6,14 @@ import { HiPencil } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import styles from './Dashboard.module.css';
 
+/**
+ * Props for the TaskCard component
+ * @interface TaskCardProps
+ * @property task - The task object to display
+ * @property onEdit - Callback function called when user clicks edit button
+ * @property onDelete - Callback function called when task is successfully deleted
+ * @property onUpdate - Callback function called when task is successfully updated
+ */
 interface TaskCardProps {
   task: Task;
   onEdit: (task: Task) => void;
@@ -13,9 +21,24 @@ interface TaskCardProps {
   onUpdate: (task: Task) => void;
 }
 
+/**
+ * Card component that displays a single task with interactive controls
+ * Shows task details, completion status, and provides edit/delete actions
+ * @param props - Component props
+ * @param props.task - Task object containing all task data
+ * @param props.onEdit - Called when user clicks the edit button
+ * @param props.onDelete - Called after successful task deletion
+ * @param props.onUpdate - Called after successful task update
+ * @returns JSX element representing the task card
+ */
 const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate }) => {
   const [loading, setLoading] = useState(false);
 
+  /**
+   * Toggles the completion status of the task
+   * Updates the task via API and calls onUpdate with the result
+   * @param e - Click event from the completion toggle button
+   */
   const handleToggleComplete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); // Prevent card click
     try {
@@ -32,11 +55,20 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
     }
   };
 
+  /**
+   * Handles edit button click and prevents event bubbling
+   * @param e - Click event from the edit button
+   */
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
     onEdit(task);
   };
 
+  /**
+   * Handles task deletion with user confirmation
+   * Shows confirmation dialog and deletes task via API
+   * @param e - Click event from the delete button
+   */
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!window.confirm('Are you sure you want to delete this task?')) {
@@ -54,6 +86,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
     }
   };
 
+  /**
+   * Formats ISO date string to a readable format
+   * @param dateString - ISO date string to format
+   * @returns Formatted date string (e.g., "Jan 15")
+   */
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -61,6 +98,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, onUpdate })
     });
   };
 
+  /**
+   * Converts category name to CSS class name
+   * Removes spaces and converts to lowercase for consistent styling
+   * @param category - Task category name
+   * @returns CSS class name for the category
+   */
   const getCategoryClass = (category: string) => {
     return category.toLowerCase().replace(/\s+/g, '');
   };

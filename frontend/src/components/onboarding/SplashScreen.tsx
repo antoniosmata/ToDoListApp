@@ -5,11 +5,26 @@ import './OnboardingFlow.css';
 // Type assertion for React 19 compatibility
 const CheckIcon = IoMdCheckmarkCircleOutline as React.ComponentType<any>;
 
+/**
+ * Props for the SplashScreen component
+ * @interface SplashScreenProps
+ * @property onComplete - Optional callback function called when splash screen completes
+ * @property duration - Optional duration in milliseconds for how long to show the splash screen
+ */
 interface SplashScreenProps {
   onComplete?: () => void;
   duration?: number;
 }
 
+/**
+ * Splash screen component that displays the app logo and branding
+ * Features fade-in animations and automatic completion timing
+ * Used at the beginning of onboarding flow or app launch
+ * @param props - Component props
+ * @param props.onComplete - Optional callback called when splash completes
+ * @param props.duration - Optional duration in ms for splash display
+ * @returns JSX element representing the splash screen
+ */
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete, duration }) => {
   const [isFadingOut, setIsFadingOut] = useState(false);
 

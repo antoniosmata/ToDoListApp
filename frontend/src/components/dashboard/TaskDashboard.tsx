@@ -10,6 +10,12 @@ import TaskCard from './TaskCard';
 import TaskForm from '../tasks/TaskForm';
 import styles from './Dashboard.module.css';
 
+/**
+ * Main dashboard component for task management
+ * Provides task viewing, filtering, searching, and CRUD operations
+ * Supports both grid and column view modes
+ * @returns JSX element representing the task dashboard
+ */
 const TaskDashboard: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,13 +25,17 @@ const TaskDashboard: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [activeView, setActiveView] = useState<'overview' | 'tasks'>('tasks');
-  const [viewMode, setViewMode] = useState<'columns' | 'grid'>('columns');
+  const [viewMode, setViewMode] = useState<'columns' | 'grid'>('grid');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     loadTasks();
   }, []);
 
+  /**
+   * Loads all tasks from the API and updates the state
+   * Handles loading states and error conditions
+   */
   const loadTasks = async () => {
     try {
       setLoading(true);
@@ -39,7 +49,11 @@ const TaskDashboard: React.FC = () => {
     }
   };
 
-  // Filter and search tasks
+  /**
+   * Filters tasks based on selected category and search term
+   * Searches across task title, description, and category
+   * @returns Filtered array of tasks
+   */
   const filteredTasks = useMemo(() => {
     let filtered = tasks;
 
@@ -61,7 +75,11 @@ const TaskDashboard: React.FC = () => {
     return filtered;
   }, [tasks, selectedCategory, searchTerm]);
 
-  // Group tasks by status for column view
+  /**
+   * Groups filtered tasks by status for column view display
+   * Creates artificial "In Progress" status by splitting incomplete tasks
+   * @returns Object containing tasks grouped by status
+   */
   const tasksByStatus = useMemo(() => {
     const yetToStart = filteredTasks.filter(task => !task.completed);
     const completed = filteredTasks.filter(task => task.completed);
@@ -78,11 +96,21 @@ const TaskDashboard: React.FC = () => {
     };
   }, [filteredTasks]);
 
+  /**
+   * Handles successful task creation
+   * Adds new task to the beginning of the tasks array and closes form
+   * @param newTask - The newly created task object
+   */
   const handleTaskCreated = (newTask: Task) => {
     setTasks(prev => [newTask, ...prev]);
     setShowForm(false);
   };
 
+  /**
+   * Handles successful task update
+   * Updates the task in the tasks array and closes editing mode
+   * @param updatedTask - The updated task object
+   */
   const handleTaskUpdated = (updatedTask: Task) => {
     setTasks(prev => prev.map(task => 
       task.id === updatedTask.id ? updatedTask : task
@@ -90,34 +118,63 @@ const TaskDashboard: React.FC = () => {
     setEditingTask(null);
   };
 
+  /**
+   * Handles successful task deletion
+   * Removes the task from the tasks array
+   * @param taskId - ID of the deleted task
+   */
   const handleTaskDeleted = (taskId: number) => {
     setTasks(prev => prev.filter(task => task.id !== taskId));
   };
 
+  /**
+   * Initiates task editing mode
+   * Sets the task to edit and opens the form
+   * @param task - Task object to edit
+   */
   const handleEdit = (task: Task) => {
     setEditingTask(task);
     setShowForm(true);
   };
 
+  /**
+   * Cancels form operation and closes the modal
+   * Resets editing state
+   */
   const handleCancelForm = () => {
     setShowForm(false);
     setEditingTask(null);
   };
 
+  /**
+   * Initiates new task creation
+   * Clears editing state and opens the form for creating a new task
+   */
   const handleAddTask = () => {
     setEditingTask(null);
     setShowForm(true);
   };
 
+  /**
+   * Toggles the sidebar open/closed state
+   * Used for mobile responsive design
+   */
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  /**
+   * Closes the sidebar
+   * Used for mobile responsive design
+   */
   const handleSidebarClose = () => {
     setSidebarOpen(false);
   };
 
-  // Close sidebar when clicking outside on mobile
+  /**
+   * Handles clicks on the sidebar overlay
+   * Closes sidebar when user clicks outside on mobile
+   */
   const handleOverlayClick = () => {
     setSidebarOpen(false);
   };

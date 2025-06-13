@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Task } from '../../types';
 import { apiService } from '../../services/api';
 
+/**
+ * Props for the TaskItem component
+ * @interface TaskItemProps
+ * @property task - Task object to display
+ * @property onEdit - Callback function when task edit is requested
+ * @property onDelete - Callback function when task is deleted
+ * @property onUpdate - Callback function when task is updated
+ */
 interface TaskItemProps {
   task: Task;
   onEdit: (task: Task) => void;
@@ -9,9 +17,24 @@ interface TaskItemProps {
   onUpdate: (task: Task) => void;
 }
 
+/**
+ * Individual task item component that displays task details and actions
+ * Features completion toggle, edit/delete actions, and formatted display
+ * Used within task lists to show individual task information
+ * @param props - Component props
+ * @param props.task - Task data to display
+ * @param props.onEdit - Called when user wants to edit the task
+ * @param props.onDelete - Called when task is successfully deleted
+ * @param props.onUpdate - Called when task is successfully updated
+ * @returns JSX element representing a single task item
+ */
 const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit, onDelete, onUpdate }) => {
   const [loading, setLoading] = useState(false);
 
+  /**
+   * Toggles the completion status of the task
+   * Updates the task via API and calls onUpdate with the result
+   */
   const handleToggleComplete = async () => {
     try {
       setLoading(true);
@@ -27,6 +50,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit, onDelete, onUpdate })
     }
   };
 
+  /**
+   * Handles task deletion with user confirmation
+   * Shows confirmation dialog before proceeding with deletion
+   */
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
@@ -43,6 +70,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit, onDelete, onUpdate })
     }
   };
 
+  /**
+   * Formats ISO date string to a readable format
+   * @param dateString - ISO date string to format
+   * @returns Formatted date string (e.g., "Jan 15, 2023")
+   */
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',

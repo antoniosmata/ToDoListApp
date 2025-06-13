@@ -3,6 +3,11 @@ import VideoBackground from '../shared/VideoBackground';
 import SignUpForm from './SignUpForm';
 import styles from './AnimatedSignUp.module.css';
 
+/**
+ * Animated sign-up component that provides a video background for user registration
+ * Displays the sign-up form with a smooth animation effect on a video background
+ * @returns JSX element representing the animated sign-up experience
+ */
 const AnimatedSignUp: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 

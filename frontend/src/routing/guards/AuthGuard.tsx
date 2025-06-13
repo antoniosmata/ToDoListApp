@@ -3,14 +3,25 @@ import { useAuth } from '../../hooks/useAuth';
 import { useRouting } from '../../hooks/useRouting';
 import { ROUTE_PATHS } from '../routeConfig';
 
+/**
+ * Props for the AuthGuard component
+ * @interface AuthGuardProps
+ * @property children - Child components to render if authentication requirements are met
+ * @property requiresAuth - Whether authentication is required to access the route (defaults to true)
+ */
 interface AuthGuardProps {
   children: React.ReactNode;
   requiresAuth?: boolean;
 }
 
 /**
- * AuthGuard protects routes that require authentication
- * Redirects to appropriate route based on authentication state
+ * Authentication guard component that protects routes requiring user authentication
+ * Handles automatic redirects based on authentication and onboarding state
+ * Provides loading states during authentication verification
+ * @param props - Component props
+ * @param props.children - Components to render if user is authenticated
+ * @param props.requiresAuth - Whether the route requires authentication (defaults to true)
+ * @returns JSX element with protected content or loading/redirect state
  */
 const AuthGuard: React.FC<AuthGuardProps> = ({ 
   children, 

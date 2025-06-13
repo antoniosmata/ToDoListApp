@@ -7,14 +7,29 @@ import OnboardingStep2 from './OnboardingStep2';
 import OnboardingStep3 from './OnboardingStep3';
 import './OnboardingFlow.css';
 
+/**
+ * Enum representing the different steps in the onboarding flow
+ * @enum OnboardingStep
+ */
 enum OnboardingStep {
+  /** Initial splash screen display */
   SPLASH = 0,
+  /** Brief transition period */
   TRANSITION = 0.5,
+  /** First onboarding step - task categories */
   STEP1 = 1,
+  /** Second onboarding step - deadlines */
   STEP2 = 2,
+  /** Third onboarding step - efficiency boost */
   STEP3 = 3
 }
 
+/**
+ * Main onboarding flow component that manages the entire user onboarding experience
+ * Handles splash screen, smooth scrolling between steps, and progress tracking
+ * Uses Intersection Observer for step visibility detection and automatic progression
+ * @returns JSX element representing the complete onboarding flow
+ */
 const OnboardingFlow: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>(OnboardingStep.SPLASH);
   const [currentVisibleStep, setCurrentVisibleStep] = useState<number>(1);
@@ -24,6 +39,10 @@ const OnboardingFlow: React.FC = () => {
   const navigate = useNavigate();
   const { markOnboardingCompleted } = useRouting();
 
+  /**
+   * Handles navigation to the next onboarding step
+   * Smoothly scrolls to the next step in the sequence
+   */
   const handleNext = useCallback(() => {
     if (currentVisibleStep < 3) {
       const nextStep = currentVisibleStep + 1;
@@ -97,10 +116,18 @@ const OnboardingFlow: React.FC = () => {
     };
   }, [currentStep]);
 
+  /**
+   * Handles navigation to the registration page
+   * Called when user clicks the Sign Up button
+   */
   const handleRegister = () => {
     navigate('/signup');
   };
 
+  /**
+   * Handles navigation to the sign-in page
+   * Called when user clicks the Sign In button
+   */
   const handleSignIn = () => {
     navigate('/signin');
   };

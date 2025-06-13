@@ -5,16 +5,36 @@ import VideoBackground from '../shared/VideoBackground';
 import SignInForm from './SignInForm';
 import './AnimatedLogin.css';
 
+/**
+ * Enum representing the different phases of the animated login sequence
+ * @enum AnimationPhase
+ */
 enum AnimationPhase {
+  /** Initial splash screen phase */
   SPLASH = 'splash',
+  /** Video background only phase */
   VIDEO = 'video',
+  /** Login form display phase */
   LOGIN = 'login'
 }
 
+/**
+ * Props for the AnimatedLogin component
+ * @interface AnimatedLoginProps
+ * @property skipSplash - Optional flag to skip the splash screen animation
+ */
 interface AnimatedLoginProps {
   skipSplash?: boolean;
 }
 
+/**
+ * Animated login component that provides a multi-phase authentication experience
+ * Supports splash screen animation, video background, and login form presentation
+ * Can skip splash screen for direct access to sign-in page
+ * @param props - Component props
+ * @param props.skipSplash - Whether to skip the splash screen animation (defaults to false)
+ * @returns JSX element representing the animated login experience
+ */
 const AnimatedLogin: React.FC<AnimatedLoginProps> = ({ skipSplash = false }) => {
   const location = useLocation();
   const isDirectAccess = skipSplash || location.pathname === '/signin';
@@ -30,6 +50,10 @@ const AnimatedLogin: React.FC<AnimatedLoginProps> = ({ skipSplash = false }) => 
     }
   }, [isDirectAccess, currentPhase]);
 
+  /**
+   * Handles the completion of the splash screen animation
+   * Transitions to video phase and sets timer for login form reveal
+   */
   const handleSplashComplete = useCallback(() => {
     setCurrentPhase(AnimationPhase.VIDEO);
     // Start timer for card reveal (0.8 seconds after video starts)
@@ -38,6 +62,10 @@ const AnimatedLogin: React.FC<AnimatedLoginProps> = ({ skipSplash = false }) => 
     }, 800);
   }, []);
 
+  /**
+   * Renders the appropriate content based on the current animation phase
+   * @returns JSX element for the current phase
+   */
   const renderContent = () => {
     switch (currentPhase) {
       case AnimationPhase.SPLASH:

@@ -2,13 +2,22 @@ import React, { useEffect } from 'react';
 import { useRouting } from '../../hooks/useRouting';
 import { ROUTE_PATHS } from '../routeConfig';
 
+/**
+ * Props for the NotFoundGuard component
+ * @interface NotFoundGuardProps
+ * @property children - Optional child components to render for valid paths
+ */
 interface NotFoundGuardProps {
   children?: React.ReactNode;
 }
 
 /**
- * NotFoundGuard handles invalid/unknown routes
- * Redirects to splash screen for unknown URLs
+ * Guard component that handles invalid/unknown routes
+ * Redirects users to the splash screen when they access non-existent URLs
+ * Provides a user-friendly 404 page with navigation back to the application
+ * @param props - Component props
+ * @param props.children - Optional children to render for valid paths
+ * @returns JSX element for 404 page or null during redirect
  */
 const NotFoundGuard: React.FC<NotFoundGuardProps> = ({ children }) => {
   const { navigateToRoute, currentPath, isValidPath } = useRouting();

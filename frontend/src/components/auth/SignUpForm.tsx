@@ -15,6 +15,12 @@ const UserIcon = CiUser as React.ComponentType<any>;
 const EyeIcon = FaRegEye as React.ComponentType<any>;
 const EyeSlashIcon = FaRegEyeSlash as React.ComponentType<any>;
 
+/**
+ * Sign-up form component that handles user registration
+ * Provides form validation, real-time field validation, and user account creation
+ * Features password visibility toggles and comprehensive error handling
+ * @returns JSX element representing the sign-up form
+ */
 const SignUpForm: React.FC = () => {
   const [formData, setFormData] = useState<SignUpDto>({
     firstName: '',
@@ -30,20 +36,35 @@ const SignUpForm: React.FC = () => {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
+  /**
+   * Toggles the visibility of the password field
+   */
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  /**
+   * Toggles the visibility of the confirm password field
+   */
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  /**
+   * Validates the entire form using validation utilities
+   * @returns Whether the form is valid
+   */
   const validateForm = () => {
     const validationResult = validateSignUpForm(formData, confirmPassword);
     setErrors(validationResult.errors);
     return validationResult.isValid;
   };
 
+  /**
+   * Handles form input changes with real-time validation
+   * Updates form state and validates individual fields
+   * @param e - Input change event
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     
@@ -72,6 +93,11 @@ const SignUpForm: React.FC = () => {
     });
   };
 
+  /**
+   * Handles form submission and user registration
+   * Validates form data and creates user account via API
+   * @param e - Form submission event
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     

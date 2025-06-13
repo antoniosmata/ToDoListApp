@@ -39,6 +39,7 @@
         <li><a href="#features">Features</a></li>
       </ul>
     </li>
+    <li><a href="#design">Design</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -101,6 +102,36 @@ The project demonstrates best practices in full-stack development, including JWT
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- DESIGN -->
+## Design
+
+The Task Manager application was designed with a focus on user experience, modern aesthetics, and intuitive navigation. The design emphasizes clean interfaces, smooth animations, and a cohesive visual language throughout the application.
+
+### Design System
+
+**🎨 View the complete design system and prototypes:**
+- **[Figma Design File](https://www.figma.com/design/example-link)** - Interactive prototypes, component library, and design specifications
+
+### Key Design Features
+
+- **Modern UI/UX**: Clean, minimalist interface with carefully chosen typography and spacing
+- **Video Backgrounds**: Immersive video backgrounds for authentication and onboarding flows
+- **Smooth Animations**: Thoughtful transitions and micro-interactions throughout the app
+- **Responsive Design**: Mobile-first approach ensuring seamless experience across all devices
+- **Accessibility**: WCAG compliant color contrasts and keyboard navigation support
+- **Dark Mode Ready**: Design system prepared for future dark mode implementation
+
+### Design Highlights
+
+- **Onboarding Experience**: Multi-step guided tour introducing users to key features
+- **Dashboard Views**: Both grid and kanban-style column layouts for task management
+- **Interactive Elements**: Hover states, loading animations, and visual feedback
+- **Consistent Branding**: Cohesive color palette and visual identity throughout
+
+The Figma file includes detailed component specifications, interaction flows, and responsive breakpoints that guided the development of this application.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -141,6 +172,31 @@ Before running this application, make sure you have the following installed:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ENVIRONMENT VARIABLES -->
+## Environment Variables
+
+The application uses environment variables for configuration. Copy `.env.example` to `.env` and update the values:
+
+```bash
+# Database Configuration
+POSTGRES_DB=taskmanager
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=your_secure_database_password
+
+# JWT Configuration  
+JWT_SECRET_KEY=your_secure_jwt_secret_32_chars_minimum
+JWT_ISSUER=TaskManagerAPI
+JWT_AUDIENCE=TaskManagerAPI
+
+# Application Configuration
+ASPNETCORE_ENVIRONMENT=Development
+REACT_APP_API_URL=http://localhost:5001/api
+```
+
+**Important**: Update the passwords and secrets in your `.env` file before running the application.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- ARCHITECTURE -->
 ## Architecture
 
@@ -176,55 +232,94 @@ Before running this application, make sure you have the following installed:
 ### Project Structure
 
 ```
-task-manager/
+TaskManager/
+├── README.md                   # Project documentation
+├── docker-compose.yml          # Multi-service orchestration
 ├── backend/
-│   └── TaskManagerAPI/
-│       ├── Controllers/        # API controllers
-│       ├── Models/             # Data models
-│       ├── DTOs/               # Data transfer objects
-│       ├── Services/           # Business logic services
-│       ├── Data/               # Database context
-│       └── Dockerfile          # Backend container config
-├── frontend/
-│   ├── src/
-│   │   ├── components/         # React components
-│   │   │   ├── auth/          # Authentication components
-│   │   │   ├── tasks/         # Task management components
-│   │   │   └── shared/        # Shared components
-│   │   ├── hooks/             # Custom React hooks
-│   │   ├── services/          # API service layer
-│   │   ├── types/             # TypeScript interfaces
-│   │   └── App.css            # CSS styles
-│   ├── Dockerfile             # Frontend container config
-│   └── nginx.conf             # Nginx configuration
-├── docker-compose.yml         # Multi-service orchestration
-└── README.md                  # Project documentation
+│   ├── Dockerfile             # Backend container config
+│   ├── TaskManagerAPI.csproj  # .NET project file
+│   ├── appsettings.json       # Application configuration
+│   ├── appsettings.Development.json
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   └── src/
+│       ├── Program.cs         # Application entry point
+│       ├── Controllers/       # API controllers
+│       │   ├── AuthController.cs
+│       │   └── TasksController.cs
+│       ├── Models/            # Data models
+│       │   ├── User.cs
+│       │   └── TaskItem.cs
+│       ├── DTOs/              # Data transfer objects
+│       │   ├── AuthDTOs.cs
+│       │   └── TaskDTOs.cs
+│       ├── Services/          # Business logic services
+│       │   ├── JwtService.cs
+│       │   └── PasswordService.cs
+│       └── Data/              # Database context
+│           └── AppDbContext.cs
+└── frontend/
+    ├── Dockerfile             # Frontend container config
+    ├── nginx.conf             # Nginx configuration
+    ├── package.json           # Node.js dependencies
+    ├── tsconfig.json          # TypeScript configuration
+    ├── build/                 # Production build output
+    ├── public/                # Static assets
+    │   ├── index.html
+    │   ├── manifest.json
+    │   ├── stream.mp4         # Background video asset
+    │   ├── beach.mp4          # Alternative video asset
+    │   └── favicon.ico
+    └── src/
+        ├── App.tsx            # Main application component
+        ├── index.tsx          # Application entry point
+        ├── index.css          # Global styles
+        ├── components/        # React components (fully JSDoc documented)
+        │   ├── auth/          # Authentication flow
+        │   │   ├── AnimatedLogin.tsx     # Multi-phase login experience
+        │   │   ├── AnimatedSignUp.tsx    # Video background signup
+        │   │   ├── SignInForm.tsx        # Login form with validation
+        │   │   └── SignUpForm.tsx        # Registration form
+        │   ├── onboarding/    # User onboarding experience
+        │   │   ├── OnboardingFlow.tsx    # Main onboarding controller
+        │   │   ├── OnboardingStep1.tsx   # Feature introduction steps
+        │   │   ├── OnboardingStep2.tsx
+        │   │   ├── OnboardingStep3.tsx
+        │   │   ├── ProgressIndicator.tsx # Progress tracking
+        │   │   └── SplashScreen.tsx      # App splash screen
+        │   ├── dashboard/     # Main dashboard interface
+        │   │   ├── TaskDashboard.tsx     # Primary dashboard view
+        │   │   ├── DashboardHeader.tsx   # Search and navigation
+        │   │   ├── DashboardSidebar.tsx  # Category filtering
+        │   │   ├── TaskCard.tsx          # Individual task display
+        │   │   └── StatusColumn.tsx      # Kanban-style columns
+        │   ├── tasks/         # Task management
+        │   │   ├── TaskForm.tsx          # Create/edit task form
+        │   │   ├── TaskItem.tsx          # Task list item
+        │   │   └── TaskList.tsx          # Complete task interface
+        │   └── shared/        # Reusable components
+        │       ├── Header.tsx            # Application header
+        │       ├── ProtectedRoute.tsx    # Route authentication
+        │       └── VideoBackground.tsx   # Fullscreen video bg
+        ├── routing/           # Navigation system
+        │   ├── RouteGuard.tsx # Master routing controller
+        │   ├── routeConfig.ts # Route configuration
+        │   └── guards/        # Route protection
+        │       ├── AuthGuard.tsx         # Authentication guard
+        │       ├── OnboardingGuard.tsx   # Onboarding completion guard
+        │       └── NotFoundGuard.tsx     # 404 handling
+        ├── hooks/             # Custom React hooks
+        │   ├── useAuth.tsx    # Authentication state management
+        │   └── useRouting.tsx # Navigation utilities
+        ├── services/          # API communication
+        │   └── api.ts         # Complete API service layer
+        ├── types/             # TypeScript definitions
+        │   └── index.ts       # All application interfaces
+        ├── utils/             # Utility functions
+        │   └── validation.ts  # Form validation logic
+        └── assets/            # Application assets
+            └── stream.mp4     # Video background asset
 ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ENVIRONMENT VARIABLES -->
-## Environment Variables
-
-The application uses environment variables for configuration. Copy `.env.example` to `.env` and update the values:
-
-```bash
-# Database Configuration
-POSTGRES_DB=taskmanager
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=your_secure_database_password
-
-# JWT Configuration  
-JWT_SECRET_KEY=your_secure_jwt_secret_32_chars_minimum
-JWT_ISSUER=TaskManagerAPI
-JWT_AUDIENCE=TaskManagerAPI
-
-# Application Configuration
-ASPNETCORE_ENVIRONMENT=Development
-REACT_APP_API_URL=http://localhost:5001/api
-```
-
-**Important**: Update the passwords and secrets in your `.env` file before running the application.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -360,22 +455,6 @@ docker-compose logs -f backend
 docker-compose logs -f frontend
 docker-compose logs -f postgres
 ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
