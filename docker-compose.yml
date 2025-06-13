@@ -3,15 +3,22 @@ services:
     image: postgres:15
     container_name: taskmanager-postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Production approach (requires .env file):
+      # POSTGRES_DB: ${POSTGRES_DB}
+      # POSTGRES_USER: ${POSTGRES_USER}
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Demo approach (no .env needed):
+      POSTGRES_DB: taskmanager
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: dev_password_123
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      # Production: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      # Demo:
+      test: ["CMD-SHELL", "pg_isready -U admin -d taskmanager"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -22,12 +29,13 @@ services:
       dockerfile: Dockerfile
     container_name: taskmanager-backend
     environment:
+      # Production approach (requires .env file):
       # - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       # - ConnectionStrings__DefaultConnection=Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       # - JwtSettings__SecretKey=${JWT_SECRET_KEY}
       # - JwtSettings__Issuer=${JWT_ISSUER}
       # - JwtSettings__Audience=${JWT_AUDIENCE}
-      # - For demo purposes:
+      # Demo approach (no .env needed):
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=taskmanager;Username=admin;Password=dev_password_123
       - JwtSettings__SecretKey=development_jwt_secret_key_32_characters_minimum_required_for_security
@@ -49,7 +57,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL}
+        # Production: REACT_APP_API_URL: ${REACT_APP_API_URL}
+        # Demo:
+        REACT_APP_API_URL: http://localhost:5001/api
     container_name: taskmanager-frontend
     ports:
       - "3000:80"
